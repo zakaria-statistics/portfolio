@@ -1,0 +1,206 @@
+{
+    "profile": {
+        "name": "Zakaria EL MOUMNAOUI",
+        "role": "DevOps and Cloud Engineer",
+        "email": "zakariaelmoumnaoui96@gmail.com",
+        "phone": "+212 622906171",
+        "location": "Casablanca, Morocco",
+        "summary": "DevOps engineer passionate about automation, orchestration, and continuous integration. Experienced in infrastructure management and CI/CD pipeline implementation.",
+        "socials": {
+            "linkedin": "https://www.linkedin.com/in/zakariaelmoumnaoui/",
+            "github": "https://github.com/zakaria-statistics"
+        }
+    },
+    "skills": {
+        "CI/CD & Automation": [
+            "GitLab CI/CD",
+            "Jenkins",
+            "GitHub Actions",
+            "ArgoCD",
+            "Ansible",
+            "Terraform",
+            "Vagrant"
+        ],
+        "Containerization": [
+            "Docker",
+            "Containerd",
+            "Kubernetes",
+            "Docker Swarm"
+        ],
+        "Cloud & Infra": [
+            "AWS",
+            "Azure",
+            "VMware ESXi",
+            "VirtualBox"
+        ],
+        "Systems & Security": [
+            "Linux",
+            "WSL",
+            "SSL/TLS",
+            "VPN",
+            "Firewalls",
+            "Nginx"
+        ],
+        "Monitoring": [
+            "Prometheus",
+            "Grafana",
+            "Loki"
+        ],
+        "Languages": [
+            "Bash",
+            "PowerShell",
+            "Python",
+            "Java",
+            "TypeScript"
+        ],
+        "Databases": [
+            "MySQL",
+            "PostgreSQL",
+            "Firebase"
+        ],
+        "AI & LLMOps": [
+            "Ollama",
+            "LangChain",
+            "Agents/Tools",
+            "Prompt Engineering"
+        ],
+        "Frameworks": [
+            "Spring Boot",
+            "Angular",
+            "React"
+        ]
+    },
+    "experience": [
+        {
+            "role": "Cloud DevOps Engineer",
+            "company": "We Are Beebay",
+            "period": "2024 - Present",
+            "description": "Working on Python Automation, Reporting, and Security Aggregation.",
+            "details": [
+                "Development of a full Python module to centralize and analyze CI security reports.",
+                "Advanced parsing of XML/JSON reports (SpotBugs, PMD, Checkstyle, Gitleaks).",
+                "Multi-source aggregation of vulnerabilities and automated executive reporting.",
+                "LLM API integration for report enrichment."
+            ]
+        },
+        {
+            "role": "Self-Managed Kubernetes Platform on Azure",
+            "company": "Project",
+            "period": "2025",
+            "description": "Implementation of a secure Kubernetes foundation on Azure.",
+            "details": [
+                "Network segmentation with dedicated subnets.",
+                "Infrastructure provisioning via Terraform.",
+                "Secrets management with Vault.",
+                "K8s cluster bootstrap via Ansible."
+            ]
+        },
+        {
+            "role": "Azure Backup & Recovery",
+            "company": "Project",
+            "period": "2025",
+            "description": "Full-stack backup and recovery strategy on Azure.",
+            "details": [
+                "Infrastructure-level snapshots and DB-level PITR.",
+                "Automated recovery testing."
+            ]
+        },
+        {
+            "role": "Azure Infrastructure Provisioning",
+            "company": "Project",
+            "period": "2025",
+            "description": "Modular cloud environment management using Terraform.",
+            "details": [
+                "Designed reusable network and compute modules.",
+                "Implemented environment-specific configurations (dev/prod)."
+            ]
+        },
+        {
+            "role": "CI/CD Pipelines",
+            "company": "Project",
+            "period": "2025",
+            "description": "Automated pipelines with GitLab CI/CD, Spring Boot, Next.js.",
+            "details": [
+                "Automated build, test, and docker image generation.",
+                "Deployment to dedicated VMs using Docker Compose."
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "title": "LLM Infrastructure on Azure",
+            "tech": [
+                "Azure",
+                "Terraform",
+                "GPU",
+                "Ollama"
+            ],
+            "description": "Design and operation of an LLM application on Azure with GPU-enabled VMs.",
+            "link": "#"
+        },
+        {
+            "title": "LLM Infrastructure on AWS",
+            "tech": [
+                "AWS",
+                "Terraform",
+                "EC2",
+                "Docker"
+            ],
+            "description": "Deployment of an LLM application on AWS supporting GPU-based options.",
+            "link": "#"
+        },
+        {
+            "title": "vSphere Infrastructure Automation",
+            "tech": [
+                "Terraform",
+                "VMware",
+                "vSphere"
+            ],
+            "description": "Full automation of VMware vSphere environment including vCenter and ESXi.",
+            "link": "#"
+        },
+        {
+            "title": "Automated Oracle Cloud Deployment",
+            "tech": [
+                "Oracle Cloud",
+                "Terraform"
+            ],
+            "description": "Infrastructure automation on Oracle Cloud covering VM and VCN provisioning.",
+            "link": "#"
+        },
+        {
+            "title": "Kubernetes Cluster Automation",
+            "tech": [
+                "Bash",
+                "Kubernetes"
+            ],
+            "description": "Bash scripts for efficient Kubernetes cluster management and monitoring.",
+            "link": "#"
+        }
+    ],
+    "education": [
+        {
+            "degree": "Master’s in Computer Science: Big Data and Cloud Computing",
+            "school": "École Normale Supérieure de l’Enseignement Technique Mohammadia",
+            "year": "2022-2024"
+        },
+        {
+            "degree": "Bachelor’s in Mathematics and Statistics",
+            "school": "Faculty of Sciences Semlalia Marrakech",
+            "year": "2014-2020"
+        }
+    ],
+    "certifications": [
+        "AWS Fundamentals",
+        "Kubernetes (KodeKloud)",
+        "Kubernetes and OpenShift (IBM)",
+        "Docker Essentials (IBM)",
+        "NDG Linux Unhatched (Cisco)",
+        "Networking Basics (Cisco)",
+        "SQL and Databases (IBM)"
+    ],
+    "languages": [
+        "French (Fluent)",
+        "English (Fluent)"
+    ]
+}
