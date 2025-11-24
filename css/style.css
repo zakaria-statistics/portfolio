@@ -50,6 +50,11 @@ body {
     color: var(--text-color);
     line-height: 1.6;
     transition: background-color 0.3s ease, color 0.3s ease;
+    background-image: url('../background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
 }
 
 a {
@@ -253,7 +258,7 @@ img {
     z-index: 10001;
 }
 
-.bar {
+.hamburger span {
     width: 25px;
     height: 3px;
     background-color: var(--text-color);
@@ -261,6 +266,13 @@ img {
 }
 
 /* Hero Section */
+.hero {
+    padding-top: 140px;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
 .hero-title {
     font-size: 4rem;
     font-weight: 800;
