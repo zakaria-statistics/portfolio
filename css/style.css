@@ -293,6 +293,18 @@ img {
 .hero-buttons {
     display: flex;
     gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.cv-downloads {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.cv-btn {
+    min-width: auto;
 }
 
 /* About Section */
@@ -747,6 +759,21 @@ img {
 
     .hero-subtitle {
         font-size: 1.2rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cv-downloads {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .cv-btn {
+        flex: 1;
+        text-align: center;
     }
 
     .nav-list {
