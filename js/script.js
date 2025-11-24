@@ -73,13 +73,23 @@ const translations = {
         "edu_master_detail_1": "Cloud Computing & DevOps",
         "edu_master_detail_2": "Big Data Architectures",
         "edu_master_detail_3": "Distributed Systems",
+        "edu_master_pfe": "E-commerce SaaS Platform",
         "edu_bachelor_title": "Bachelor’s in Mathematics and Statistics",
         "edu_bachelor_school": "Faculty of Sciences Semlalia Marrakech",
         "edu_bachelor_detail_1": "Mathematical Statistics",
         "edu_bachelor_detail_2": "Probability Theory",
         "edu_bachelor_detail_3": "Hierarchical Clustering",
         "edu_pfe": "PFE:",
+        "download_pfe": "Download PFE Report",
+        "download_internship": "Download Internship Report",
         "cert_title": "Certifications",
+        "cert_aws": "AWS Certificate",
+        "cert_k8s": "Kubernetes Certificates",
+        "cert_sql": "SQL Certificates",
+        "cert_docker": "Docker Certificates",
+        "cert_linux": "Linux Certificates",
+        "cert_networking": "Networking Certificates",
+        "cert_other": "Other Certificates",
         "contact_title": "Get In Touch",
         "contact_text": "I'm currently open to new opportunities. Feel free to reach out!",
         "contact_email": "Email Me",
@@ -154,13 +164,23 @@ const translations = {
         "edu_master_detail_1": "Cloud Computing & DevOps",
         "edu_master_detail_2": "Architectures Big Data",
         "edu_master_detail_3": "Systèmes Distribués",
+        "edu_master_pfe": "Plateforme E-commerce SaaS",
         "edu_bachelor_title": "Licence en Mathématiques et Statistiques",
         "edu_bachelor_school": "Faculté des Sciences Semlalia Marrakech",
         "edu_bachelor_detail_1": "Statistiques Mathématiques",
         "edu_bachelor_detail_2": "Théorie des Probabilités",
         "edu_bachelor_detail_3": "Classification Hiérarchique",
         "edu_pfe": "PFE :",
+        "download_pfe": "Télécharger le Rapport PFE",
+        "download_internship": "Télécharger le Rapport de Stage",
         "cert_title": "Certifications",
+        "cert_aws": "Certificat AWS",
+        "cert_k8s": "Certificats Kubernetes",
+        "cert_sql": "Certificats SQL",
+        "cert_docker": "Certificats Docker",
+        "cert_linux": "Certificats Linux",
+        "cert_networking": "Certificats Réseau",
+        "cert_other": "Autres Certificats",
         "contact_title": "Contactez-moi",
         "contact_text": "Je suis actuellement ouvert à de nouvelles opportunités. N'hésitez pas à me contacter !",
         "contact_email": "Envoyez-moi un email",
@@ -312,3 +332,25 @@ async function fetchGitHubStats() {
         githubContainer.innerHTML = '<p>Failed to load GitHub stats.</p>';
     }
 }
+
+// --- PDF Download Tracking ---
+// Initialize PDF download tracking when DOM is ready
+(function() {
+    function initPDFTracking() {
+        document.querySelectorAll('.pdf-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const pdfName = this.getAttribute('href');
+                console.log(`Downloading: ${pdfName}`);
+                
+                // Optional: Add analytics tracking here
+                // gtag('event', 'download', { file_name: pdfName });
+            });
+        });
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPDFTracking);
+    } else {
+        initPDFTracking();
+    }
+})();
