@@ -15,16 +15,21 @@
 <body>
     <header class="header">
         <div class="container">
-            <a href="#" class="logo">Zakaria.dev</a>
+            <a href="#" class="logo">Zakaria.infra</a>
             <nav class="nav">
                 <ul class="nav-list">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#skills" class="nav-link">Skills</a></li>
-                    <li><a href="#experience" class="nav-link">Experience</a></li>
-                    <li><a href="#projects" class="nav-link">Projects</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li><a href="#home" class="nav-link" data-i18n="nav_home">Home</a></li>
+                    <li><a href="#about" class="nav-link" data-i18n="nav_about">About</a></li>
+                    <li><a href="#skills" class="nav-link" data-i18n="nav_skills">Skills</a></li>
+                    <li><a href="#experience" class="nav-link" data-i18n="nav_experience">Experience</a></li>
+                    <li><a href="#education" class="nav-link" data-i18n="nav_education">Education</a></li>
+                    <li><a href="#projects" class="nav-link" data-i18n="nav_projects">Projects</a></li>
+                    <li><a href="#contact" class="nav-link" data-i18n="nav_contact">Contact</a></li>
                 </ul>
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="en" onclick="changeLanguage('en')">EN</button>
+                    <button class="lang-btn" data-lang="fr" onclick="changeLanguage('fr')">FR</button>
+                </div>
                 <button id="theme-toggle" aria-label="Toggle Dark Mode">
                     <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -57,23 +62,27 @@
     <main>
         <section id="home" class="hero">
             <div class="container hero-content">
-                <h1 class="hero-title">Hi, I'm <span class="highlight">Zakaria EL MOUMNAOUI</span></h1>
-                <p class="hero-subtitle">DevOps and Cloud Engineer</p>
+                <h1 class="hero-title"><span data-i18n="hero_greeting">Hi, I'm</span> <span class="highlight">Zakaria EL
+                        MOUMNAOUI</span></h1>
+                <p class="hero-subtitle" data-i18n="hero_subtitle">DevOps and Cloud Engineer</p>
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">View Work</a>
-                    <a href="Zakaria_EL_moumnaoui_resume.pdf" target="_blank" class="btn btn-secondary">Download CV</a>
+                    <a href="#projects" class="btn btn-primary" data-i18n="hero_view_work">View Work</a>
+                    <a href="Zakaria_EL_moumnaoui_resume.pdf" target="_blank" class="btn btn-secondary"
+                        data-i18n="hero_download_cv">Download CV</a>
                 </div>
             </div>
         </section>
 
         <section id="about" class="section">
             <div class="container">
-                <h2 class="section-title">About Me</h2>
+                <h2 class="section-title" data-i18n="about_title">About Me</h2>
                 <div class="about-content">
                     <div class="about-text">
-                        <p>DevOps engineer passionate about automation, orchestration, and continuous integration.
+                        <p data-i18n="about_text_1">DevOps engineer passionate about automation, orchestration, and
+                            continuous integration.
                             Experienced in infrastructure management and CI/CD pipeline implementation.</p>
-                        <p>Based in <strong>Casablanca, Morocco</strong>.</p>
+                        <p><span data-i18n="about_text_2">Based in</span> <strong data-i18n="about_location">Casablanca,
+                                Morocco</strong>.</p>
                     </div>
                 </div>
             </div>
@@ -81,60 +90,60 @@
 
         <section id="skills" class="section">
             <div class="container">
-                <h2 class="section-title">Technical Skills</h2>
+                <h2 class="section-title" data-i18n="skills_title">Technical Skills</h2>
                 <div class="skills-grid">
                     <div class="skill-category">
-                        <h3 class="skill-title">CI/CD & Automation</h3>
+                        <h3 class="skill-title" data-i18n="skills_cicd">CI/CD & Automation</h3>
                         <div class="skill-tags">
                             <span>GitLab CI/CD</span><span>Jenkins</span><span>GitHub
                                 Actions</span><span>ArgoCD</span><span>Ansible</span><span>Terraform</span><span>Vagrant</span>
                         </div>
                     </div>
                     <div class="skill-category">
-                        <h3 class="skill-title">Containerization</h3>
+                        <h3 class="skill-title" data-i18n="skills_containerization">Containerization</h3>
                         <div class="skill-tags">
                             <span>Docker</span><span>Containerd</span><span>Kubernetes</span><span>Docker Swarm</span>
                         </div>
                     </div>
                     <div class="skill-category">
-                        <h3 class="skill-title">Cloud & Infra</h3>
+                        <h3 class="skill-title" data-i18n="skills_cloud">Cloud & Infra</h3>
                         <div class="skill-tags">
                             <span>AWS</span><span>Azure</span><span>VMware ESXi</span><span>VirtualBox</span>
                         </div>
                     </div>
                     <div class="skill-category">
-                        <h3 class="skill-title">Systems & Security</h3>
+                        <h3 class="skill-title" data-i18n="skills_systems">Systems & Security</h3>
                         <div class="skill-tags">
                             <span>Linux</span><span>WSL</span><span>SSL/TLS</span><span>VPN</span><span>Firewalls</span><span>Nginx</span>
                         </div>
                     </div>
                     <div class="skill-category">
-                        <h3 class="skill-title">Monitoring</h3>
+                        <h3 class="skill-title" data-i18n="skills_monitoring">Monitoring</h3>
                         <div class="skill-tags">
                             <span>Prometheus</span><span>Grafana</span><span>Loki</span>
                         </div>
                     </div>
                     <div class="skill-category">
-                        <h3 class="skill-title">Languages</h3>
+                        <h3 class="skill-title" data-i18n="skills_languages">Languages</h3>
                         <div class="skill-tags">
                             <span>Bash</span><span>PowerShell</span><span>Python</span><span>Java</span><span>TypeScript</span>
                         </div>
                     </div>
                     <div class="skill-category">
-                        <h3 class="skill-title">Databases</h3>
+                        <h3 class="skill-title" data-i18n="skills_databases">Databases</h3>
                         <div class="skill-tags">
                             <span>MySQL</span><span>PostgreSQL</span><span>Firebase</span>
                         </div>
                     </div>
                     <div class="skill-category">
-                        <h3 class="skill-title">AI & LLMOps</h3>
+                        <h3 class="skill-title" data-i18n="skills_ai">AI & LLMOps</h3>
                         <div class="skill-tags">
                             <span>Ollama</span><span>LangChain</span><span>Agents/Tools</span><span>Prompt
                                 Engineering</span>
                         </div>
                     </div>
                     <div class="skill-category">
-                        <h3 class="skill-title">Frameworks</h3>
+                        <h3 class="skill-title" data-i18n="skills_frameworks">Frameworks</h3>
                         <div class="skill-tags">
                             <span>Spring Boot</span><span>Angular</span><span>React</span>
                         </div>
@@ -145,71 +154,83 @@
 
         <section id="experience" class="section">
             <div class="container">
-                <h2 class="section-title">Experience</h2>
+                <h2 class="section-title" data-i18n="experience_title">Experience</h2>
                 <div class="timeline">
                     <div class="timeline-item">
                         <div class="timeline-content">
                             <span class="date">2024 - Present</span>
-                            <h3 class="job-title">Cloud DevOps Engineer</h3>
+                            <h3 class="job-title" data-i18n="exp_beebay_role">Cloud DevOps Engineer</h3>
                             <h4 class="company">We Are Beebay</h4>
-                            <p class="job-description">Working on Python Automation, Reporting, and Security
+                            <p class="job-description" data-i18n="exp_beebay_desc">Working on Python Automation,
+                                Reporting, and Security
                                 Aggregation.</p>
                             <ul class="job-details">
-                                <li>Development of a full Python module to centralize and analyze CI security reports.
+                                <li data-i18n="exp_beebay_detail_1">Development of a full Python module to centralize
+                                    and analyze CI security reports.
                                 </li>
-                                <li>Advanced parsing of XML/JSON reports (SpotBugs, PMD, Checkstyle, Gitleaks).</li>
-                                <li>Multi-source aggregation of vulnerabilities and automated executive reporting.</li>
-                                <li>LLM API integration for report enrichment.</li>
+                                <li data-i18n="exp_beebay_detail_2">Advanced parsing of XML/JSON reports (SpotBugs, PMD,
+                                    Checkstyle, Gitleaks).</li>
+                                <li data-i18n="exp_beebay_detail_3">Multi-source aggregation of vulnerabilities and
+                                    automated executive reporting.</li>
+                                <li data-i18n="exp_beebay_detail_4">LLM API integration for report enrichment.</li>
                             </ul>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-content">
                             <span class="date">2025</span>
-                            <h3 class="job-title">Self-Managed Kubernetes Platform on Azure</h3>
+                            <h3 class="job-title" data-i18n="exp_k8s_role">Self-Managed Kubernetes Platform on Azure
+                            </h3>
                             <h4 class="company">Project</h4>
-                            <p class="job-description">Implementation of a secure Kubernetes foundation on Azure.</p>
+                            <p class="job-description" data-i18n="exp_k8s_desc">Implementation of a secure Kubernetes
+                                foundation on Azure.</p>
                             <ul class="job-details">
-                                <li>Network segmentation with dedicated subnets.</li>
-                                <li>Infrastructure provisioning via Terraform.</li>
-                                <li>Secrets management with Vault.</li>
-                                <li>K8s cluster bootstrap via Ansible.</li>
+                                <li data-i18n="exp_k8s_detail_1">Network segmentation with dedicated subnets.</li>
+                                <li data-i18n="exp_k8s_detail_2">Infrastructure provisioning via Terraform.</li>
+                                <li data-i18n="exp_k8s_detail_3">Secrets management with Vault.</li>
+                                <li data-i18n="exp_k8s_detail_4">K8s cluster bootstrap via Ansible.</li>
                             </ul>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-content">
                             <span class="date">2025</span>
-                            <h3 class="job-title">Azure Backup & Recovery</h3>
+                            <h3 class="job-title" data-i18n="exp_backup_role">Azure Backup & Recovery</h3>
                             <h4 class="company">Project</h4>
-                            <p class="job-description">Full-stack backup and recovery strategy on Azure.</p>
+                            <p class="job-description" data-i18n="exp_backup_desc">Full-stack backup and recovery
+                                strategy on Azure.</p>
                             <ul class="job-details">
-                                <li>Infrastructure-level snapshots and DB-level PITR.</li>
-                                <li>Automated recovery testing.</li>
+                                <li data-i18n="exp_backup_detail_1">Infrastructure-level snapshots and DB-level PITR.
+                                </li>
+                                <li data-i18n="exp_backup_detail_2">Automated recovery testing.</li>
                             </ul>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-content">
                             <span class="date">2025</span>
-                            <h3 class="job-title">Azure Infrastructure Provisioning</h3>
+                            <h3 class="job-title" data-i18n="exp_infra_role">Azure Infrastructure Provisioning</h3>
                             <h4 class="company">Project</h4>
-                            <p class="job-description">Modular cloud environment management using Terraform.</p>
+                            <p class="job-description" data-i18n="exp_infra_desc">Modular cloud environment management
+                                using Terraform.</p>
                             <ul class="job-details">
-                                <li>Designed reusable network and compute modules.</li>
-                                <li>Implemented environment-specific configurations (dev/prod).</li>
+                                <li data-i18n="exp_infra_detail_1">Designed reusable network and compute modules.</li>
+                                <li data-i18n="exp_infra_detail_2">Implemented environment-specific configurations
+                                    (dev/prod).</li>
                             </ul>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-content">
                             <span class="date">2025</span>
-                            <h3 class="job-title">CI/CD Pipelines</h3>
+                            <h3 class="job-title" data-i18n="exp_cicd_role">CI/CD Pipelines</h3>
                             <h4 class="company">Project</h4>
-                            <p class="job-description">Automated pipelines with GitLab CI/CD, Spring Boot, Next.js.</p>
+                            <p class="job-description" data-i18n="exp_cicd_desc">Automated pipelines with GitLab CI/CD,
+                                Spring Boot, Next.js.</p>
                             <ul class="job-details">
-                                <li>Automated build, test, and docker image generation.</li>
-                                <li>Deployment to dedicated VMs using Docker Compose.</li>
+                                <li data-i18n="exp_cicd_detail_1">Automated build, test, and docker image generation.
+                                </li>
+                                <li data-i18n="exp_cicd_detail_2">Deployment to dedicated VMs using Docker Compose.</li>
                             </ul>
                         </div>
                     </div>
@@ -219,7 +240,7 @@
 
         <section id="github-stats" class="section">
             <div class="container">
-                <h2 class="section-title">GitHub Statistics</h2>
+                <h2 class="section-title" data-i18n="github_stats_title">GitHub Statistics</h2>
                 <div id="github-stats-container" class="stats-grid">
                     <p>Loading stats...</p>
                 </div>
@@ -228,12 +249,13 @@
 
         <section id="projects" class="section">
             <div class="container">
-                <h2 class="section-title">R&D Projects</h2>
+                <h2 class="section-title" data-i18n="projects_title">R&D Projects</h2>
                 <div class="projects-grid">
                     <article class="project-card">
                         <div class="project-content">
-                            <h3 class="project-title">LLM Infrastructure on Azure</h3>
-                            <p class="project-description">Design and operation of an LLM application on Azure with
+                            <h3 class="project-title" data-i18n="proj_llm_azure_title">LLM Infrastructure on Azure</h3>
+                            <p class="project-description" data-i18n="proj_llm_azure_desc">Design and operation of an
+                                LLM application on Azure with
                                 GPU-enabled VMs.</p>
                             <div class="project-tags">
                                 <span>Azure</span><span>Terraform</span><span>GPU</span><span>Ollama</span>
@@ -242,8 +264,9 @@
                     </article>
                     <article class="project-card">
                         <div class="project-content">
-                            <h3 class="project-title">LLM Infrastructure on AWS</h3>
-                            <p class="project-description">Deployment of an LLM application on AWS supporting GPU-based
+                            <h3 class="project-title" data-i18n="proj_llm_aws_title">LLM Infrastructure on AWS</h3>
+                            <p class="project-description" data-i18n="proj_llm_aws_desc">Deployment of an LLM
+                                application on AWS supporting GPU-based
                                 options.</p>
                             <div class="project-tags">
                                 <span>AWS</span><span>Terraform</span><span>EC2</span><span>Docker</span>
@@ -252,8 +275,10 @@
                     </article>
                     <article class="project-card">
                         <div class="project-content">
-                            <h3 class="project-title">vSphere Infrastructure Automation</h3>
-                            <p class="project-description">Full automation of VMware vSphere environment including
+                            <h3 class="project-title" data-i18n="proj_vsphere_title">vSphere Infrastructure Automation
+                            </h3>
+                            <p class="project-description" data-i18n="proj_vsphere_desc">Full automation of VMware
+                                vSphere environment including
                                 vCenter and ESXi.</p>
                             <div class="project-tags">
                                 <span>Terraform</span><span>VMware</span><span>vSphere</span>
@@ -262,8 +287,10 @@
                     </article>
                     <article class="project-card">
                         <div class="project-content">
-                            <h3 class="project-title">Automated Oracle Cloud Deployment</h3>
-                            <p class="project-description">Infrastructure automation on Oracle Cloud covering VM and VCN
+                            <h3 class="project-title" data-i18n="proj_oracle_title">Automated Oracle Cloud Deployment
+                            </h3>
+                            <p class="project-description" data-i18n="proj_oracle_desc">Infrastructure automation on
+                                Oracle Cloud covering VM and VCN
                                 provisioning.</p>
                             <div class="project-tags">
                                 <span>Oracle Cloud</span><span>Terraform</span>
@@ -272,8 +299,9 @@
                     </article>
                     <article class="project-card">
                         <div class="project-content">
-                            <h3 class="project-title">Kubernetes Cluster Automation</h3>
-                            <p class="project-description">Bash scripts for efficient Kubernetes cluster management and
+                            <h3 class="project-title" data-i18n="proj_k8s_auto_title">Kubernetes Cluster Automation</h3>
+                            <p class="project-description" data-i18n="proj_k8s_auto_desc">Bash scripts for efficient
+                                Kubernetes cluster management and
                                 monitoring.</p>
                             <div class="project-tags">
                                 <span>Bash</span><span>Kubernetes</span>
@@ -286,30 +314,44 @@
 
         <section id="education" class="section">
             <div class="container">
-                <h2 class="section-title">Education & Certifications</h2>
+                <h2 class="section-title" data-i18n="education_title">Education & Certifications</h2>
                 <div class="education-grid">
                     <div class="edu-card">
-                        <h3>Master’s in Computer Science: Big Data and Cloud Computing</h3>
-                        <p class="school">École Normale Supérieure de l’Enseignement Technique Mohammadia</p>
+                        <div class="edu-header">
+                            <img src="ENSET Mohammedia.jpg" alt="ENSET Logo" class="edu-logo">
+                            <div class="edu-info">
+                                <h3 data-i18n="edu_master_title">Master’s in Computer Science: Big Data and Cloud
+                                    Computing</h3>
+                                <p class="school" data-i18n="edu_master_school">École Normale Supérieure de
+                                    l’Enseignement Technique Mohammadia</p>
+                            </div>
+                        </div>
                         <span class="year">2022-2024</span>
                         <ul class="edu-details">
-                            <li>Cloud Computing & DevOps</li>
-                            <li>Big Data Architectures</li>
-                            <li>Distributed Systems</li>
+                            <li data-i18n="edu_master_detail_1">Cloud Computing & DevOps</li>
+                            <li data-i18n="edu_master_detail_2">Big Data Architectures</li>
+                            <li data-i18n="edu_master_detail_3">Distributed Systems</li>
                         </ul>
                     </div>
                     <div class="edu-card">
-                        <h3>Bachelor’s in Mathematics and Statistics</h3>
-                        <p class="school">Faculty of Sciences Semlalia Marrakech</p>
+                        <div class="edu-header">
+                            <img src="UCA-Morocco.webp" alt="UCA Logo" class="edu-logo">
+                            <div class="edu-info">
+                                <h3 data-i18n="edu_bachelor_title">Bachelor’s in Mathematics and Statistics</h3>
+                                <p class="school" data-i18n="edu_bachelor_school">Faculty of Sciences Semlalia Marrakech
+                                </p>
+                            </div>
+                        </div>
                         <span class="year">2014-2020</span>
                         <ul class="edu-details">
-                            <li>Mathematical Statistics</li>
-                            <li>Probability Theory</li>
-                            <li><strong>PFE:</strong> Hierarchical Clustering</li>
+                            <li data-i18n="edu_bachelor_detail_1">Mathematical Statistics</li>
+                            <li data-i18n="edu_bachelor_detail_2">Probability Theory</li>
+                            <li><strong data-i18n="edu_pfe">PFE:</strong> <span
+                                    data-i18n="edu_bachelor_detail_3">Hierarchical Clustering</span></li>
                         </ul>
                     </div>
                     <div class="cert-card">
-                        <h3>Certifications</h3>
+                        <h3 data-i18n="cert_title">Certifications</h3>
                         <ul class="cert-list">
                             <li>AWS Fundamentals</li>
                             <li>Kubernetes (KodeKloud)</li>
@@ -326,11 +368,13 @@
 
         <section id="contact" class="section">
             <div class="container">
-                <h2 class="section-title">Get In Touch</h2>
+                <h2 class="section-title" data-i18n="contact_title">Get In Touch</h2>
                 <div class="contact-content">
-                    <p class="contact-text">I'm currently open to new opportunities. Feel free to reach out!</p>
+                    <p class="contact-text" data-i18n="contact_text">I'm currently open to new opportunities. Feel free
+                        to reach out!</p>
                     <div class="contact-links">
-                        <a href="mailto:zakariaelmoumnaoui@outlook.com" class="btn btn-primary">Email Me</a>
+                        <a href="mailto:zakariaelmoumnaoui@outlook.com" class="btn btn-primary"
+                            data-i18n="contact_email">Email Me</a>
                         <a href="https://www.linkedin.com/in/zakariaelmoumnaoui/" target="_blank"
                             class="btn btn-secondary">LinkedIn</a>
                         <a href="https://github.com/zakaria-statistics" target="_blank"
@@ -343,7 +387,7 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Zakaria EL MOUMNAOUI. All rights reserved.</p>
+            <p>&copy; 2025 Zakaria EL MOUMNAOUI. <span data-i18n="footer_rights">All rights reserved.</span></p>
             <div class="social-links">
                 <a href="https://github.com/zakaria-statistics" aria-label="GitHub">GitHub</a>
                 <a href="https://www.linkedin.com/in/zakariaelmoumnaoui/" aria-label="LinkedIn">LinkedIn</a>

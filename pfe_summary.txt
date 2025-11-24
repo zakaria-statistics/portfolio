@@ -1,0 +1,6 @@
+Domaine : Machine Learning Non Supervisé & Statistiques
+Titre: Classification Hiérarchique Ascendante (CHA)
+
+Description : Implémentation d'une Classification Hiérarchique Ascendante sous R. Comparaison d'algorithmes de clustering (Ward, lien complet) et validation statistique rigoureuse (décomposition de l'inertie, indices de silhouette) pour une segmentation optimale de données complexes.
+
+Tags : Unsupervised Learning Statistiques (Inertie) R Data Science
