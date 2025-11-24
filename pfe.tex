@@ -1,0 +1,1430 @@
+\documentclass[12pt,a4 paper]{report}
+\usepackage{enumerate,shortvrb}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{pgfplots}
+\newtheorem{theorem}{Th\'eor\`eme}
+\newtheorem{definition}{D\'efinition}
+\newtheorem{proof}{Preuve}
+\newtheorem{remark}{Remarque}
+\newtheorem{exmp}{Exemple}
+\usepackage{graphicx}
+\usepackage{ulem}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{slashbox}
+\graphicspath{{images/}}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\usepackage{fancybox}
+
+
+%\mathversion{bold}
+%\title{
+%	{\bf Classification Hi\'erarchique %Ascendante\\Utilisation du logiciel R}
+%}
+
+%\author{Zakaria EL MOUMNAOUI}
+
+
+
+%\maketitle
+
+%\tableofcontents
+
+
+
+%---EN-PIED-DE-PAGE----------------------------------------------------
+\pagestyle{fancy}
+\usepackage{lastpage}
+\renewcommand\headrulewidth{1pt}
+\renewcommand\footrulewidth{1pt}
+\fancyfoot[C]{\textbf{Page \thepage~sur \textcolor{red}{\pageref{LastPage}}}}
+\fancyfoot[L]{\textit{Zakaria El Moumnaoui}}
+\fancyfoot[R]{\textit{UCA-FSSM}}
+\fancyhead[L]{}
+
+
+
+
+
+
+%----------------- Page de garde -------------------------------
+
+\begin{document}
+
+\begin{titlepage}
+  \begin{center}
+	\includegraphics[scale=1]{fssmm.png} \\
+
+	\vspace{1cm}
+	{\huge{Département de Mathématiques}}\\
+	\vspace{1cm}
+    {\huge{Projet de fin d'\'etudes }}\\
+
+    % Title
+    \HRule \\[0.4cm]
+    { \huge \bfseries Classification Hi\'erarchique Ascendante\\ Utilisation du logiciel R\\[0.4cm] }
+
+    \HRule \\[2cm]
+    \end{center}
+
+	\begin{center}
+	\hspace{-0.5cm}\textbf{Présenté par} \hspace{3.5cm} \textbf{Encadré par}\\
+	 Zakaria El Moumnaoui \hspace{2.5cm} Pr. Lalla Aicha Allamy \\
+
+\vspace{1cm}
+	\hspace{-0.5cm}\textbf{Membres du jury}\\
+\vspace{0.3cm}
+\hspace{-1cm} Pr. Abdelaziz Nasroallah \hspace{0.5cm} Pr. Abdallah Mkhadri \hspace{0.5cm} Pr. Lalla Aicha Allamy \\
+
+	\vspace{1cm}
+	\textbf{Soutenu le }: 06 juillet 2020
+	\end{center}
+
+\vspace{2cm}
+
+	\begin{center}
+	Année universitaire 2019/2020
+	\end{center}
+
+\end{titlepage}
+
+\tableofcontents
+
+\addcontentsline{toc}{chapter}{Remerciements}
+\chapter*{Remerciements}
+
+Je souhaite tout d'abord remercier infiniment mon encadrante, le professeur Lalla Aicha Allamy, pour ses orientations judicieuses, ses pr\'ecieux conseils, ses supports et ses encouragements tout au long de ce projet.\\
+
+Je voudrais aussi remercier tous les membres de jury, le professeur\\ Abdelaziz Nasroallah et le professeur Abdallah Mkhadri, qui ont bien volu \'evaluer mon projet de fin d'\'etudes et faire partie du jury.\\
+
+Je tiens \'egalement \`a remercier tous les enseignants de la Facult\'e des Sciences Semlalia et surtout les Professeurs du D\'epartement de Math\'ematiques.\\
+
+Je n'oublie pas de remercier Allah en premier, mes parents qui ont toujours \'et\'e pr\'esent pour me soutenir, mes proches amis et toutes les personnes qui ont contribu\'e de pr\`es ou de loin \`a la r\'ealisation de ce projet.
+
+
+
+\chapter*{Introduction}\addcontentsline{toc}{chapter}{Introduction}
+D\`es le d\'ebut du $XX^{\grave{e}me}$ si\`ecle, le monde a v\'ecu des changements r\'evoluti-\\onnaires dans tous les domaines (\'economiques, sociaux, militaires...). Ces changements sont accompagn\'es d'une explosion de donn\'ees, sous plusieurs formes. D'o\`u le besoin d'outils sophistiqu\'es pour manipuler ces donn\'ees.\\
+
+L'analyse des donn\'ees est une discipline plus ou moins r\'ecente, ses bases sont connues depuis longtemps, mais elle n'a pu \^etre d\'evelopp\'ee qu'avec l'invention d'ordinateurs durant la $2^{\grave{e}me}$ guerre mondiale, ce qui a rendu le traitement des grandes masses de donn\'ees, faisable. L'analyse des donn\'ees moderne \'etait \'etablie par les statiticiens Jean-Paul Benzecri, Chikio Hayashi et le psychiatre Louis Guttman, au $XX^{\grave{e}me}$ si\`ecle.\\
+
+L'analyse des donn\'ees est un champ scientifique multidimensionnel dirig\'e vers le traitement des donn\'ees, afin d'extraire les informations qu'elles contiennent (Data Mining). Ainsi, on peut exploiter ces informations pour faire des pr\'edictions et alors faire \'eventuellement des choix appropri\'es et prendre de bonnes d\'ecisions (Aide \`a la D\'ecision).\\
+
+Il existe plusieurs m\'ethodes en analyse des donn\'ees telles que l'analyse par r\'eduction des dimensions et l'analyse par classification. Dans ce m\'emoire on va s'intersser au $2^{\grave{e}me}$ axe, l'analyse par classification et plus pr\'ecis\'ement la classification hi\'erarchique.\\
+
+La classification hi\'erarchique est une m\'ethode d'apprentissage non supervis\'e dans l'apprentissage automatique (Machine Learning). Les donn\'ees \`a traiter sont \`a l'\'etat brut, non modifi\'ees et telles qu'elles existent \`a l'origine (pas de classes pr\'ed\'efinies). Cette m\'ethode est constitu\'ee de deux processus principaux, la classification hi\'erarchique ascendante (la plus utilis\'ee) et la classification hi\'erarchique descendante. Ce sont deux algorithmes  oppos\'es l'un \`a l'autre dans la d\'emarche du traitement des donn\'ess.\\
+ 
+Ce m\'emoire sera constitu\'e de 2 chapitres. Un premier chapitre o\`u l'on pr\'esentera la classification hi\'erarchique ascendante, un second chapitre concernera une application num\'erique de la m\'ethode avec de grandes masses de donn\'ees en utilisant le logiciel R. 
+
+
+
+
+
+\chapter{Classification Hi\'erarchique Ascendante}
+
+\section{Classification Hi\'erarchique Ascendante}
+\subsection{D\'efinitions}
+La classification hi\'erarchique est un algorithme qui regroupe les donn\'ees dans des classes, suivant un critère bien choisi.\\
+
+Il existe de nombreuses applications de la classification hi\'erarchique dans plusieurs domaines:\\
+1) Biologie: r\`egne animal, classification suivant l'ADN des \^etre Humain.\\
+2) G\'eographie: division g\'eographique du Maroc.\\
+3) Education: classification des \'etudients dans une \'etablissement scolaire.\\ 
+4) Marketing et commerce: segmentation des profils des clients et recommendation des marchandises et des services (achat et location des voitures, produits alimentaires...), segmentation des posts de travail dans une soci\'et\'e.\\
+5) Divertissement: recommendation des multim\'edia (filmes, videos Youtube...).\\
+
+Dans ce chapitre on va traiter la classification hi\'erarchique ascendante qui est la plus utilis\'ee dans cette cat\'egorie.\\
+
+\begin{definition}:\\
+La classification hi\'erarchique ascendante est un algorithme qui consiste \`a consid\'erer chaque donn\'ee comme \'etant une classe au d\'epart et essayer \`a chaque it\'eration de fusionner les classes qui sont proches entre elles jusqu'\`a les regrouper dans une seule classe, en se basant sur un crit\`ere bien choisi.
+\end{definition}
+
+\begin{remark}:\\
+1) La classification s'int\'eresse \`a des tableaux de donn\'ees individus-variables quantitatives.\\
+2) Objectifs: production d'une structure (dendrogramme) permettant:\\
+\indent - La mise en \'evidence de liens hi\'erarchique entre individus ou groupes d'individus.\\
+\indent - La d\'etection d'un nombre de classes "naturel" au sein de la population (Hidden patterns).\\
+3) Le processus s'arr\^etera automatiquement quand les donn\'ees se regrouperont dans une seule classe, mais en prenant en consid\'eration l'\'etude \`a faire, on choisi une \'etape bien pr\'ecise dans l'algorithme \`a consid\'erer comme point d'arr\^et.
+\end{remark}
+
+Pour plus de pr\'ecision, on consid\`ere un ensemble fini $\Omega$ d'individus (donn\'ees). On netra $\omega$, un \'el'ement quelconque de $\Omega$.\\
+On suppose que l'on dipose d'une mesure de dissimilarit\'e entre les classes.\\
+Lorsque l'on parle de classification hi\'erarchique, on parle donc de l'existence d'une hi\'erarchie, que l'on notera H.\\
+
+\begin{definition}:\\
+Une hi\'erarchie H est l'ensemble des classes (\'el\'ements de P($\Omega$), ensemble des parties de $\Omega$) \`a toutes les \'etapes de l'algorithme, qui v\'erifie les propri\'et\'es suivantes:\\
+1) $\emptyset \notin H$: aucune classe n'est vide.\\
+2) $ \Omega \in H $: au sommet de l'hi\'erarchie tous les individus sont group\'es dans une seule classe.\\
+3) $ \forall \omega \in \Omega,\; \lbrace \omega \rbrace \in H $: en bas de l'hi\'erarchie, tous les individus se trouvent seuls (une classe par individus).\\
+4) $ \forall (h_{1} ,h_{2}) \in H^{2},\;\; h_{1} \cap h_{2} = \emptyset\; ou\; h_{1} \subset h_{2}\; ou\; h_{2} \subset h_{1}$: si l'on consid\`ere deux classes du regroupement, soit elles sont disjointes, soit l'une est incluse dans l'autre.
+\end{definition}
+
+Pour illustrer ceci, on pr\'esente un exemple.\\
+
+\begin{exmp}:\\
+Soit $\Omega = \left\lbrace A,B,C,D,E,F,G,H,I,J,K \right\rbrace $ un ensemble de points. Une hi\'erarchie de $\Omega$ peut \^etre comme suit:\\
+
+
+\end{figure}
+
+  \begin{figure}[h]
+  \centering
+    \includegraphics[width=10cm, height=4cm]{hierarchy.jpg}
+    \caption{Exemple d’une hi\'erarchie de parties de $\Omega$}
+\end{figure}
+
+\end{exmp}
+\newpage
+\subsection{Visualisation des donn\'ees}
+
+La visualisation des donn\'ees se fait \`a travers un graphique typique appel\'e \guillemotleft dendrogramme\guillemotright. Un dendrogramme est un diagramme sous forme d'un arbre, sur l'axe des abscisses figurent les donn\'ees initiales et sur  l'axe des ordonn\'ees une \'echelle est \'etablie pour mesurer les dissimilarit\'es ou les indices d'agr\'egation entre les classes.\\
+
+La visualisation par dendrogramme est une technique visant \`a partitionner une population en diff\'erentes classes ou sous-groupes.\\
+
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{dend.jpg}
+\caption{Exemple de dendrogramme}
+\end{figure}
+
+
+
+\section{Algorithme de la classification} 
+ 
+Dans cet algorithme on cherche \`a ce que les individus regroup\'es au sein d'une m\^eme classe soient les plus semblables possibles (homog\'en\'eit\'e intra-classe), tandis que les classes soient le plus dissemblables (h\'et\'erog\'en\'eit\'e inter-classe).\\
+
+L'algorithme est bas\'e sur les points suivants:\\
+\begin{enumerate}
+\item Pr\'eparation des donn\'ees\\
+\item Crit\`ere de dissimilarit\'e et matrice des distances\\
+\item Fusion et choix du nombre de classes.\\
+
+
+\end{enumerate}
+\subsection{Pr\'eparation des donn\'ees}
+La pr\'eparation des donn\'ees est la premi\`ere t\^ache \`a faire, en important les donn\'ees existantes ou bien en rentrant les donn\'ees directement.
+\begin{remark}:\\
+On est amen\'e des fois \`a centrer et/ou r\'eduire les donn\'ees. On peut aussi recontrer le probl\`eme des donn\'ees manquantes et alors soit on les supprime ou bien on les estime. 
+\end{remark}
+
+
+\subsection{Dissimilarit\'e et matrice des distances}
+Soit E un sous-ensemble de $\mathbb{R}^{p}$ de cardinal n et soient, \`a une \'etape $t_{m}$ de l'algorithme, les m classes de donn\'ees de P(E) suivantes:\\
+$ C_{1}=\lbrace p_{1_{1}},\ldots,p_{1_{r_{1}}}\rbrace,\ldots,C_{m}=\lbrace p_{m_{1}},\ldots,p_{m_{r_{m}}}\rbrace$ et $d$ une distance sur $\mathbb{R}^{p}$ (par exemple la distance euclidienne).
+\begin{definition}:\\
+La dissimilarit\'e est un crit\`ere de comparaison entre les classes de donn\'ees, not\'ee $dissim(C_{i},C_{j})$,$\;C_{i}\; et \; C_{j}$ sont deux classes de la hi\'erarchie H \`a construire.
+\end{definition}
+\begin{definition}:\\
+La matrice des distances est une matrice dont les coefficients sont les valeurs des dissimilarit\'es entre les classes deux \`a deux.
+\end{definition}
+
+On \'ecrit l'algorithme de la classification hi\'erarchique ascendante, comme suit:\\
+
+Etant donn\'es un ensemble $E = \lbrace p_{1},\ldots,p_{n} \rbrace $ et un crit\`ere de dissimilarit\'e "dissm".\\
+for (i = 1 to n)\\
+\indent $C_{i} = \lbrace p_{i} \rbrace $\\
+\noindent end \\
+P = $\lbrace C_{1},\ldots,C_{n} \rbrace $\\
+\noindent while P.size $>$ 1 do\\
+\lbrace \\
+\indent $(C_{min1},C_{min2}) = minimum\;\; dissm(C_{i},C_{j})\;\; for\;\; all\;\; C_{i}, C_{j}$ in P\\
+\indent add $\lbrace C_{min1}, C_{min2} \rbrace$ to P\\
+\indent delete $C_{min1} \;\; and \;\; C_{min1}$ from P\\
+\rbrace \\
+end \\\\
+
+
+\begin{remark}:
+\begin{enumerate}
+\item La dissimilarit\'e d\'epend de la distance choisie.
+\item Les deux classes qui ont la dissimilarit\'e la plus faible entre elles vont \^etre fusionn\'ees.
+\item La matrice des distances change \`a chaque \'etape du processus de regroupement des classes, suivant le crit\`ere \'etait choisi.
+\end{enumerate}
+\end{remark}
+On pr\'esente dans la suite quelques crit\`eres usuels de dissimilirat\'e.\\
+
+
+Soient les m classes fix\'ees ci-dessus, $ C_{1},\ldots,C_{m}$ de cardinal  $r_{1},\ldots,r_{m}$, respectivement.\\
+
+
+
+1) \underline{Crit\`ere du minimum ou lien simple:}\\\\
+On consid\`ere le minimum des distances entre les classes deux \`a deux:\\ 
+$$\forall\;1\leq i\neq j \leq m,\;\; dissim(C_{i},C_{j}) = \min_{\substack{1\leq k\leq r_{i} \\ 1\leq l\leq r_{j}}} (d(p_{i_{k}},p_{j_{l}})).$$\\\\
+%Alors on fusionne  $C_{i_{0}}$ et $C_{j_{0}}.$\\
+
+
+On illustre ceci par la figure suivante:\\\\
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\filldraw (1.5,1.5) circle (2pt);
+\filldraw (0.5,0.5) circle (2pt);
+\filldraw (0,1) circle (2pt);
+\filldraw (0.5,1.5) circle (2pt);
+\filldraw (2,1) circle (2pt)node[anchor=north] {$p_{j}$};
+\draw (2,1)--(6,1);
+\filldraw (1.5,0.5) circle (2pt);
+\filldraw (6,1) circle (2pt)node[anchor=north] {$p_{i}$};
+\filldraw (8,1) circle (2pt);
+\filldraw (7,0.5) circle (2pt);
+\filldraw (7,1.5) circle (2pt);
+\node at (-0.5, -0.5) {$C_{j}$};
+\draw (1,1) ellipse (1.5cm and 1cm);
+\draw (7,1) ellipse (1.5cm and 1cm);
+\node at (8.5,-0.5) {$C_{i}$};
+\end{tikzpicture}
+\end{figure}
+
+
+Chaque crit\`ere a des avantages et des inconv\'enients. Pour ce crit\`ere on cite:\\
+
+\begin{itemize}
+\item Avantages: Ce crit\`ere permet de s\'eparer les classes qui sont loin entre elles.\\
+\begin{figure}[h]
+\centering
+    \includegraphics[width=8cm, height=4cm]{singlegap.jpg}
+    \caption{Donn\'ees non-elliptiques avec \'ecart. Donn\'ees r\'eelles \`a gauche contre donn\'ees classifi\'ees \`a droite}
+\end{figure}
+
+  \begin{figure}[h]
+  \centering
+    \includegraphics[width=10cm, height=3cm]{singlegap2.jpg}
+    \caption{Donn\'ees elliptiques avec \'ecart. Donn\'ees r\'eelles \`a gauche contre donn\'ees classifi\'ees \`a droite}
+\end{figure}
+\newpage
+\item Inconv\'enients: Ce crit\`ere ne peut pas s\'eparer les donn\'ees qui sont chevauch\'ees (effet de cha\^ine).\\
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{disa single.jpg}
+\caption{Donn\'ees r\'eelles \`a gauche contre donn\'ees classifi\'ees \`a droite}
+\end{figure}
+
+\end{itemize}
+
+
+
+2) \underline{Crit\`ere du maximum ou lien complet:}\\\\
+On consid\`ere le maximum des distances entre les classes deux \`a deux:\\ 
+$$\forall\;1\leq i\neq j \leq m,\;\; dissim(C_{i},C_{j}) = \max_{\substack{1\leq k\leq r_{i} \\ 1\leq l\leq r_{j}}} (d(p_{i_{k}},p_{j_{l}})).$$\\\\
+%Alors on fusionne  $C_{i_{0}}$ et $C_{j_{0}}.$\\
+
+ 
+On illustre ceci par la figure suivante:\\\\
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\filldraw (1.5,1.5) circle (2pt);
+\filldraw (0.5,0.5) circle (2pt);
+\filldraw (0,1) circle (2pt);
+\filldraw (0.5,1.5) circle (2pt);
+\filldraw (0,1) circle (2pt)node[anchor=north] {$p_{j}$};
+\draw (0,1)--(8,1);
+\filldraw (1.5,0.5) circle (2pt);
+\filldraw (8,1) circle (2pt)node[anchor=north] {$p_{i}$};
+\filldraw (7,0.5) circle (2pt);
+\filldraw (7,1.5) circle (2pt);
+\node at (-0.5, -0.5) {$C_{j}$};
+\draw (1,1) ellipse (1.5cm and 1cm);
+\draw (7,1) ellipse (1.5cm and 1cm);
+\node at (8.5,-0.5) {$C_{i}$};
+\end{tikzpicture}
+\end{figure}
+
+
+
+\begin{itemize}
+\item Avantages: Ce crit\`ere permet de s\'eparer les classes qui sont proches entre elles.\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{avacomplete.jpg}
+\caption{Donn\'ees r\'eelles \`a gauche contre donn\'ees classifi\'ees \`a droite}
+\end{figure}
+\newpage
+\item Inconv\'enients: Ce crit\`ere est biais\'e vers les grosses classes, c'est \`a dire il classifie les donn\'ees de mani\`ere \`a ce que les petites classes dominent des donn\'ees de grosses classes. \\
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{disacomplete.jpg}
+\caption{Donn\'ees r\'eelles \`a gauche contre donn\'ees classifi\'ees \`a droite}
+\end{figure}
+
+\end{itemize}
+
+
+3) \underline{Crit\`ere de la moyenne:}\\\\
+On consid\'ere la moyenne des distances entre les classes deux \`a deux:\\
+$$\forall\;1\leq i\neq j \leq m,\;\; dissim(C_{i},C_{j}) =\frac{1}{ r_{i} \times r_{j}}\sum_{1\leq k\leq r_{i}}\sum_{1\leq l\leq r_{j}}(d(p_{i_{k}},p_{j_{l}})).$$\\\\
+
+
+On illustre ceci par la figure suivante:\\\\
+\begin{figure}[h]
+
+\centering
+\begin{tikzpicture}
+\filldraw (1.5,1.5) circle (2pt);
+\filldraw (0.5,0.5) circle (2pt);
+\filldraw (8,1) circle (2pt);
+\filldraw (7,0.5) circle (2pt);
+\filldraw (7,1.5) circle (2pt);
+\draw [red](1.5,1.5)--(7,1.5);
+\draw [red](1.5,1.5)--(7,0.5);
+\draw [red](1.5,1.5)--(8,1);
+\draw [blue](0.5,0.5)--(7,1.5);
+\draw [blue](0.5,0.5)--(7,0.5);
+\draw [blue](0.5,0.5)--(8,1);
+\node at (-0.5, -0.5) {$C_{j}$};
+\draw (1,1) ellipse (1.5cm and 1cm);
+\draw (7,1) ellipse (1.5cm and 1cm);
+\node at (8.5,-0.5) {$C_{i}$};
+\end{tikzpicture}
+\end{figure}
+
+
+
+\begin{itemize}
+\item Avantages: Ce crit\`ere permet de s\'eparer les classes qui sont proches entre elles.\\
+\item Inconv\'enients: Ce crit\`ere est biais\'e vers les grosses classes, de plus elle est co\^uteuse au nombre d'operations \`a \'effectuer. \\
+
+\end{itemize}
+
+
+
+
+\begin{definition}:\\
+Soit $ E=\lbrace {p_{1},\ldots,p_{n}} \rbrace $ un ensemble de $ \mathbb{R}^{p} .$ \\
+Et $ P_{m}=(C_{1}=\lbrace p_{1{_{1}}},\ldots,p_{1_{r_{1}}} \rbrace,\ldots, C_{m}=\lbrace p_{m{_{1}}},\ldots,p_{m{_{r_{m}}}} \rbrace)$ une partition de E.\\\\
+\indent - L'inertie totale de E est $ I_{T} = \frac{1}{n}\sum_{i = 1}^{n}d^{2}(p{i} , g) .$\\\\
+\indent - L'inertie intra-classe de $P_{m}$ est la somme des inerties totales des classes $ C_{j} $ de P, j = 1,...,m:\\\\
+$$I_{W} = \frac{1}{n}\sum_{j = 1}^{m}\sum_{i = 1}^{r_{j}}d^{2}(p_{j}_{i} , g_{j})$$\\\\
+\indent - L'inertie inter-classe est: $$I_{B} = \frac{1}{n}\sum_{j = 1}^{m}r_{j}d^{2}(g_{j} , g).$$\\\\
+Avec g le barycentre de E, $g_{j}$ le barycentre de $C_{j}$, j = 1,...,m et d une distance sur l'espace $ \mathbb{R}^{p} $.
+\end{definition}
+
+Le r\'esultat suivant est d'une importance dans la d\'ecomposition d'inertie.\\
+\begin{theorem}{(D\'ecomposition de Huygens)}:\\
+Sous les hypoth\`eses de la d\'efinition 5 on a: $I_{T} = I_{W} + I_{B}.$\\
+\end{theorem}\\
+
+
+
+\newpage
+On peut voir la d\'ecomposition en 2D dans la figure suivante:
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{inertie.jpg}
+\caption{D\'ecomposition d'inertie}
+\end{figure}
+
+\begin{proof}: (D\'ecomposition de Huygens)\\
+Soit $ E=\lbrace {p_{1},\ldots,p_{n}} \rbrace $ un ensemble de $ \mathbb{R}^{p} .$ \\
+Soit $ P_{m}=(C_{1}=\lbrace p_{1{_{1}}},\ldots,p_{1_{r_{1}}} \rbrace,\ldots, C_{m}=\lbrace p_{m{_{1}}},\ldots,p_{m{_{r_{m}}}} \rbrace)$ une partition de E, on a:\\\\
+\begin{array}{rcl}
+I_{T} &=& \frac{1}{n}\sum_{i = 1}^{n}d^{2}(p_{i},g).\\ 
+ &=&  \frac{1}{n}\sum_{i = 1}^{n}\Vert p_{i}-g\Vert^{2},\;\; \mathbb{R}^{p} \textit{ est un espace euclidien}.\\\\
+ &=& \frac{1}{n}\sum_{k = 1}^{m}\sum_{p_{j}\in C_{k}}\Vert p_{j}-g\Vert^{2},\;\; somme\;\; par\;\; paquets\;\; disjoints.\\\\
+ &=& \frac{1}{n}\sum_{k = 1}^{m}\sum_{p_{j}\in C_{k}}\Vert (p_{j}-g_{k})+(g_{k}-g)\Vert^{2}.
+\end{array}\\\\
+$O\`u\;\; C_{1}\cup C_{2}\ldots\cup C_{m}=\Omega\;\; et\;\; C_{r}\cap C_{t}=\emptyset,\;\; r\neq t.$\\\\
+\begin{array}{rcl}
+I_{T} &=& \frac{1}{n}\sum_{k = 1}^{m}\sum_{p_{j}\in C_{k}} \Big[ \Vert p_{j}-g_{k}\Vert^{2} + 2<p_{j}-g_{k},g_{k}-g> +  \Vert g_{k}-g\Vert^{2} \Big].\\\\
+&=& \frac{1}{n}\sum_{k = 1}^{m}\sum_{p_{j}\in C_{k}}\Vert p_{j}-g_{k}\Vert^{2} + \frac{1}{n}\sum_{k = 1}^{m}\sum_{p_{j}\in C_{k}}\Vert g_{k}-g\Vert^{2}.
+\end{array}\\\\\\
+Car  $\frac{2}{n}<\sum_{k = 1}^{m}\sum_{p_{j}\in C_{k}}p_{j}-\sum_{k = 1}^{m}\sum_{p_{j}\in C_{k}}g_{k},\sum_{k = 1}^{m}\sum_{p_{j}\in C_{k}}\left( g_{k}-g\right) > = 0.$\\\\
+Il vient du fait que  $\sum_{k = 1}^{m}\sum_{p_{j}\in C_{k}}p_{j} = \sum_{k = 1}^{m}\sum_{p_{j}\in C_{k}}g_{k}.$ car $ g_{k} = \frac{1}{|C_{k}|} \sum_{p_{j}\in C_{k}}p_{j}.$\\\\
+D'ou $I_{T} = I_{W} + I_{B}.$
+
+\end{proof}
+\newpage
+4) \underline{Crit\`ere de Ward:}\\
+A chaque \'etape on regroupe les deux classes dont leur agr\'egation produit une diminution de l'inertie inter-classe minimale.\\
+
+$$\forall\;1\leq i\neq j \leq m,\;\; dissim(C_{i},C_{j}) =\frac{ r_{i} \times r_{j}}{r_{i} + r_{j}}d^{2}(g_{i},g_{j}) = I_{C_{i}\cup C_{j}} -( I_{C_{i}}+I_{C_{i}}).$$ Avec $g_{i}$ est le barycentre de $ C_{i} $, $g_{j}$ est le barycentre de $ C_{j}$, $I_{C_{i}\cup C_{j}}$ est l'inertie totale de $C_{i}\cup C_{j}$, $I_{C_{i}}$ est l'inertie totale de $ C_{i} $, $I_{C_{j}}$ est l'inertie totale de $ C_{j} $ et $ d^{2} $ est la distance euclidienne au carr\'e.\\\\
+
+On illustre dans $ \mathbb{R}^{2} $ cette m\'ethode par la figure suivante:\\
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+
+\filldraw (1.5,1.5) circle (2pt);
+\filldraw (1,1) circle (3pt);
+\filldraw (0.5,0.5) circle (2pt);
+\filldraw (1,1) circle (2pt)node[anchor=sud] {$g_{j}$};
+\filldraw (8,1.45) circle (2pt);
+\filldraw (7,0.5) circle (2pt);
+\filldraw (7.25,1) circle (3pt);
+\filldraw (7,1.5) circle (2pt);
+\filldraw (7.25,1) circle (2pt)node[anchor=north] {$g_{i}$};
+\draw [red](1.5,1.5)--(1,1);
+\draw [red](0.5,0.5)--(1,1);
+
+\draw [red](8,1.45)--(7.25,1);
+\draw [red](7,0.5)--(7.25,1);
+\draw [red](7,1.5)--(7.25,1);
+
+\filldraw (5,1) circle (2pt)node[anchor=north] {$g_{i,j}$};
+
+\draw [blue](1,1)--(5,1);
+\draw [blue](7.25,1)--(5,1);
+
+\draw [green](1.5,1.5)--(5,1);
+\draw [green](0.5,0.5)--(5,1);
+\draw [green](8,1.45)--(5,1);
+\draw [green](7,0.5)--(5,1);
+\draw [green](7,1.5)--(5,1);
+
+\node at (-0.5, -0.5) {$C_{j}$};
+\draw (1,1) ellipse (1.5cm and 1cm);
+\draw (7,1) ellipse (1.5cm and 1cm);
+\node at (8.5,-0.5) {$C_{i}$};
+\end{tikzpicture}
+\end{figure}
+
+Avec $g_{i,j}$ est le barycentre de $C_{j}\cup C_{j}.$\\\\
+
+\begin{itemize}
+\item Avantages: Ce crit\`ere permet de s\'eparer les classes qui sont proches entre elles et il est performant dans le cas d'effet de cha\^ine (donn\'ees chevauch\'ees).
+\item Inconv\'enients: Ce crit\`ere est biais\'e vers les grosses classes et il est sensible aux donn\'ees aberrantes (extr\^emes).
+\end{itemize}
+\begin{remark}:\\
+La nature des donn\'ees et le choix du crir\`ere de dissimilarit\'e influencent la matrice des distances et donc la classification des donn\'ees, comme on le voit dans la figure ci-dessous.
+\end{remark}
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{compar.jpg}
+\caption{Exemple d'effet de chaîne}
+\end{figure}
+- \underline{Commentaire sur la FIGURE 1.9:}\\
+
+Les données (figures à gauche) sont réparties en deux groupes, un groupe repr\'esent\'e par des («+») et l'autre repr\'esent\'e par des («$ \times $»). De plus, sur la figure du bas, un bruit est ajouté («$ *$»). En utilisant le critère du minimum, qui est sensible au bruit, on ne retrouve pas les groupes. Par contre, avec le critère de Ward, même avec le bruit, les deux groupes peuvent être distingués.\\\\
+
+Maintenant on pense \`a am\'eliorer notre hi\'erarchie et on se pose la question suivante:\\
+Quand une partition est-elle dite bonne?\\
+
+R\'eponse:\\
+
+1) Si les individus d'une m\^eme classe sont proches.\\
+
+2) Si les individus de deux classes diff\'erentes sont \'eloign\'es.\\
+
+La d\'ecomposition de Huygens mesure cette similarit\'e entre les individus et entre les classes en se basant sur le changement de l'inertie au cours de l'algorithme et plus pr\'ecis\'ement, elle nous permet de sugg\'erer un indicateur de qualit\'e de la partition \`a chaque \'etape.\\
+Cet indicateur est d\'efini comme suit:\\
+\begin{definition}:\\
+On appelle indicateur de qualit\'e d'une partition \`a une \'etape donn\'ee, la quatit\'e:\\
+$$R^{2} = \frac{I_{B}}{I_{T}}. $$ 
+\end{definition}
+
+
+\begin{remark}:\\
+On a $ 0\leq R^{2} \leq 1$, plus $R^{2}$ est proche de 1, plus la partiton est meilleure.\\
+1) $R^{2}$ = 0 $ \Longrightarrow \forall j = 1,\ldots,m, \;\; g_{j} = g $: les classes ont la m\^eme moyenne, on ne peut donc les classifier.\\
+2) $R^{2}$ = 1 $ \Longrightarrow \forall j = 1,\ldots,m \;\; et \;\; i = 1,\ldots,j, \;\; p_{j}_{i} = g_{j}$: les individus d'une m\^eme classe sont identiques. Donc les classes sont tr\`es homog\`enes (i.e ceci est l'id\'eal pour classifier).
+\end{remark}
+-\underline{Attention}:\\
+Ce crit\`ere ne peut \^etre jug\'e comme absolu car il d\'epend du nombre d'individus et du nombre de classes, il permet juste de comparer deux partitions d'un ensemble E, de m\^eme nombre de classes. \\ \\
+
+On dispose aussi d'un autre coefficient de qualit\'e d'une partition.\\
+\begin{definition}:\\
+On appelle indice de silhouette d'un individu $ p_{j} $ de la classe $ C_{j} $ not\'e $s(p_{j})$, la quantit\'e:\\
+$$ s(p_{j})={\frac {b(p_{j})-a(p_{j})}{\max(a(p_{j}),b(p_{j}))}}.$$\\
+O\`u $ a(p_{j})={\frac {1}{|C_{j}|-1}}\sum _{p\in C_{j},p_{j}\neq p}d(p_{i},p)}$ est la distance moyenne du point $ p_{j} $ \`a son groupe $ C_{j} $ et $ b(p_{j})=\min _{k\neq j}{\frac {1}{|C_{k}|}}\sum _{p\in C_{k}}d(p_{j},p)}$ est la distance moyenne du point $ p_{j} $ à son groupe voisin.
+\end{definition}
+
+
+\begin{remark}:\\
+1) $-1\leq s(p_{j})\leq 1.$\\
+2) Une valeur de $s(p_{j})$ proche de 1 signifie que le point $ p_{j} $ est coh\'erent avec sa classe m\`ere $ C_{j},$ une valeur nulle signifie que le point $ p_{j} $ est sur la fronti\`ere des deux classes (classe m\`ere et classe voisine) et une valeur proche de -1 signifie que le point est coh\'erent avec la classe voisine plus que la classe m\`ere.\\
+3) On peut comparer l'homog\'en\'eit\'e des groupes dans leur partition, en examinant la moyenne des indices de silhouette dans chaque groupe de cette partition moyennant la quantit\'e:\\
+$$ S(C_{k}) = {\frac {1}{\vert C_{k}\vert }}\sum _{p\in C_{k}}s(p)}.$$ Les groupes ayant les coefficients de silhouette les plus forts sont les plus homog\`enes.\\
+4) Sur l'ensemble de la classification, l'indice de silhouette est donn\'e par:\\
+$$ S = {\frac {1}{m}}\sum _{k=1}^{m}{\frac {1}{\vert C_{k}\vert }}\sum _{p\in C_{k}}s(p)}.$$
+\end{remark}\\\\
+On illustre la m\'ethode par la figure suivante:\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[height=4cm,width=8cm]{silhouette.jpg}
+\caption{Calcul de l'indice de silhouette du point x}
+\end{figure}
+
+
+\begin{remark}:\\
+1) L'inertie totale \'etant constante, on essaie de minimiser la perte d'inetie inter-classe qui ne cesse que de diminuer, ce qui revient \`a minimiser le gain d'inertie intra-classe qui augmente, pour aboutir \`a un choix optimal et donc \`a une bonne classification.\\
+2) Il existe plusieurs crit\`eres de dissimilarit\'e autres que ceux d\'efinis auparavant. Donc selon la nature des donn\'ees on essaie de choisir le plus appropri\'e.\\
+
+\end{remark}
+ 
+
+
+
+
+
+
+
+A ce stade, on se pose la question suivante: "quand le processus doit-il s'arr\^eter"?\\
+La r\'eponse \`a cette question est le but de la section suivante.
+\subsection{Fusion et choix du nombre de classes}\\
+
+\`A chaque \'etape de l'algorithme on fusionne deux classes qui ont la dissimilarit\'e minimale parmi les autres, dans une m\^eme nouvelle classe, et les autres classes de la hi\'erarchie H restent invariantes \`a priopri jusqu'\`a l'\'etape suivante.\\ 
+
+Ce processus de fusion se termine automatiquement par le regroupement des donn\'ees dans une seule classe. Le choix du nombre de classes est un probl\`eme fondamental. Il n'existe pas de m\'ethode g\'en\'erale pour le r\'esoudre. Soit on a d\'ej\`a le nombre de classes \'evidant (\`a partir de la nature des donn\'ees), ou bien on le choisit en se basant sur le graphe de gain d'inertie intra-classe (i.e la perte d'inertie inter-classe)  par la m\'ethode du coude. Cette m\'ethode consiste \`a choisir le nombre de classes en se basant sur la d\'eviation aig\"{u}e dans la courbe.\\
+
+Dans la figure suivante on voit deux d\'eviations, il est toujours \'evident de choisir deux classes, mais on essaie de prendre d'autres, comme on le voit sur Figure 1.11. Il exite 3 classes \`a choisir.\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[height=6cm,width=10cm]{elbow.jpg}
+\caption{M\'ethode du coude}
+\end{figure}
+\\
+
+Pour illustrer ces notions et voir les diff\'erentes m\'ethodes utilis\'ees dans l'algorithme, on consid\`ere l'exemple suivant:\\
+
+\begin{exmp}:\\
+On consid\`ere le tableau de donn\'ees, suivant:\\
+
+\begin{center}
+\begin{tabular}{|c|c|C|}\hline
+  &  x    &  y  \\ \hline
+$p_{1}$ & 0.4   & 0.53  \\ \hline
+$p_{2}$ & 0.22  & 0.38 \\ \hline
+$p_{3}$ & 0.35  & 0.32 \\ \hline
+$p_{4}$ & 0.26  & 0.19 \\ \hline
+$p_{5}$ & 0.08  & 0.41 \\ \hline
+$p_{6}$ & 0.45  & 0.3  \\ \hline
+\end{tabular}\\
+\end{center}
+
+Pour obtenir les classes, on utilisera, respectivement le crit\`ere du minimum, le crit\`ere du maximum et le crit\`ere de la moyenne.\\
+
+
+\end{exmp}
+\begin{remark}:\\
+1) Pour cet exemple on n'a pas besion de la pr\'eparation des donn\'ees.\\
+2) Pour ces trois crit\`eres, on d\'eroulera l'algorithme sans imposer de point d'arr\^et. L'algorithme (ou le processus) s'arr\^etera alors, une fois que toutes les donn\'ees seront regroup\'ees dans une seule classe.
+\end{remark}
+
+a) \underline{Crit\`ere du minimum:}\\
+
+$1^{\`ere}$ \'etape:
+On calcule la matrice des distances en utilisant la distance euclidienne et on obtient:\\
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}\hline
+   &$p_{1}$ &$p_{2}$&$p_{3}$&$p_{4}$&$p_{5}$&$p_{6}$&  \hline
+$p_{1}$ & 0    &     &     &     &     &  &   \hline
+$p_{2}$ & 0.23 & 0   &     &     &     &  &   \hline
+$p_{3}$ & 0.22 & 0.15 &    0 &     &     &  &   \hline
+$p_{4}$ & 0.37 &  0.2 & 0.15 &    0 &     &  &   \hline
+$p_{5}$ & 0.34 & 0.14 & 0.28 & 0.29 &    0 &  &   \hline
+$p_{6}$ & 0.23 & 0.25 & 0.11 & 0.22 & 0.39 & 0 &    \hline
+\end{tabular}\\
+\end{center}
+
+La valeur 0.11 est le minimum des valeurs, alors $p_{3}$ et $p_{6}$ vont \^etre fusionn\'ees dans une classe commune $\lbrace p_{3},p_{6} \rbrace$.\\
+
+$2^{\`eme}$ \'etape:
+On recalcule la matrice de distances \`a nouveau avec les nouvelles classes.\\
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}\hline
+   &$p_{1}$ &$p_{2}$&$\lbrace p_{3},p_{6} \rbrace$&$p_{4}$&$p_{5}$&  \hline
+$p_{1}$ & 0    &     &     &     &     &     \hline
+$p_{2}$ & 0.23 & 0   &     &     &     &     \hline
+$\lbrace p_{3},p_{6} \rbrace$ & 0.22 & 0.15 &    0 &     &     &     \hline
+$p_{4}$ & 0.37 &  0.2 & 0.15 &    0 &     &     \hline
+$p_{5}$ & 0.34 & 0.14 & 0.28 & 0.29 &    0 &     \hline
+\end{tabular}\\
+\end{center}
+
+La valeur 0.14 est le minimum des valeurs alors $p_{2}$ et $p_{5}$ vont \^etre fusionn\'ees dans une classe commune $\lbrace p_{2},p_{5} \rbrace$.\\
+
+$3^{\`eme}$ \'etape:
+On recalcule \`a nouveau la matrice des distances.\\
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}\hline
+   &$p_{1}$ &$\lbrace p_{2},p_{5} \rbrace$&$\lbrace p_{3},p_{6} \rbrace$&$p_{4}$&  \hline
+   
+$p_{1}$ & 0    &     &     &     &      \hline
+
+$\lbrace p_{2},p_{5} \rbrace$ & 0.23 & 0   &     &     &      \hline
+
+$\lbrace p_{3},p_{6} \rbrace$ & 0.22 & 0.15 &    0 &     &      \hline
+
+$p_{4}$ & 0.37 &  0.2 & 0.15 &    0 &     \hline
+
+\end{tabular}\\
+\end{center}
+
+\begin{remark}:\\
+La valeur 0.15 est le minimum mais elle figure deux fois dans la matrice. L\`a on choisit la premi\`ere dans la matrice et donc les classes $\lbrace p_{2},p_{5} \rbrace$ et $\lbrace p_{3},p_{6} \rbrace$ vont \^etre fusionn\'ees dans une classe commune $\lbrace p_{2},p_{5} ,p_{3},p_{6}\rbrace$.
+\end{remark}
+
+$4^{\`eme}$ \'etape:
+Apr\`es avoir recalcul\'e la matrice des distances, on obtient\\
+\begin{center}
+\begin{tabular}{|c|c|c|c|}\hline
+   &$p_{1}$ &$\lbrace p_{2},p_{5}, p_{3},p_{6} \rbrace$&$p_{4}$&  \hline
+   
+$p_{1}$ & 0    &     &     &   \hline
+
+$\lbrace p_{2},p_{5}, p_{3},p_{6} \rbrace$ & 0.22 & 0   &     &   \hline
+
+
+$p_{4}$ & 0.37 &  0.15 & 0 &  \hline
+
+\end{tabular}\\
+\end{center}
+
+La valeur 0.15 est le minimum donc $\lbrace p_{2},p_{5}, p_{3},p_{6} \rbrace$ et $p_{4}$ vont \^etre fusionn\'ees dans une classe commune $\lbrace p_{2},p_{5}, p_{3},p_{6},p_{4} \rbrace$.\\
+
+$5^{\`eme}$ \'etape:
+On recalcule \`a nouveau la matrice des distances.\\
+\begin{center}
+\begin{tabular}{|c|c|c|}\hline
+   &$p_{1}$ &$\lbrace p_{2},p_{5}, p_{3},p_{6}, \rbrace$&  \hline
+   
+$p_{1}$ & 0    &     &   \hline
+
+$\lbrace p_{2},p_{5}, p_{3},p_{6},p_{4} \rbrace$ & 0.22 & 0   &   \hline
+
+
+\end{tabular}\\
+\end{center}
+
+La derni\`ere valeur est 0.22 donc  $\lbrace p_{2},p_{5}, p_{3},p_{6},p_{4} \rbrace$ et $p_{1}$ vont \^etre fusionn\'ees dans une classe commune $\lbrace p_{2},p_{5}, p_{3},p_{6},p_{4},p_{1} \rbrace$ qui regroupe toutes les donn\'ees.\\
+\newpage
+On obtient alors la repr\'esentation graphique des r\'esultats avec le dendrogramme suivant:\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{sing.jpg}
+\caption{Dendrogramme relatif au crit\`ere du minimum}
+\end{figure}
+
+
+
+
+
+b) \underline{Crit\`ere du maximum:}\\
+
+$1^{\`ere}$ \'etape:
+Pour la premi\`ere \'etape, la matrice des distances est la m\^eme.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}\hline
+   &$p_{1}$ &$p_{2}$&$p_{3}$&$p_{4}$&$p_{5}$&$p_{6}$&  \hline
+$p_{1}$ & 0    &     &     &     &     &  &   \hline
+$p_{2}$ & 0.23 & 0   &     &     &     &  &   \hline
+$p_{3}$ & 0.22 & 0.15 &    0 &     &     &  &   \hline
+$p_{4}$ & 0.37 &  0.2 & 0.15 &    0 &     &  &   \hline
+$p_{5}$ & 0.34 & 0.14 & 0.28 & 0.29 &    0 &  &   \hline
+$p_{6}$ & 0.23 & 0.25 & 0.11 & 0.22 & 0.39 & 0 &    \hline
+\end{tabular}\\
+\end{center}
+
+La valeur 0.11 est le minimum des valeurs, alors $p_{3}$ et $p_{6}$ vont \^etre fusionn\'ees dans une classe commune $\lbrace p_{3},p_{6} \rbrace$.\\
+
+$2^{\`eme}$ \'etape:
+On recalcule \`a nouveau la matrice des distances avec les nouvelles classes.\\
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}\hline
+   &$p_{1}$ &$p_{2}$&$\lbrace p_{3},p_{6} \rbrace$&$p_{4}$&$p_{5}$&  \hline
+$p_{1}$ & 0    &     &     &     &     &     \hline
+$p_{2}$ & 0.23 & 0   &     &     &     &     \hline
+$\lbrace p_{3},p_{6} \rbrace$ & 0.23 & 0.25 &    0 &     &     &     \hline
+$p_{4}$ & 0.37 &  0.2 & 0.22 &    0 &     &     \hline
+$p_{5}$ & 0.34 & 0.14 & 0.39 & 0.29 &    0 &     \hline
+\end{tabular}
+\end{center}
+
+La valeur 0.14 est le minimum des valeurs alors $p_{2}$ et $p_{5}$ vont \^etre fusionn\'ees dans une classe commune $\lbrace p_{2},p_{5} \rbrace$\\
+
+$3^{\`eme}$ \'etape:
+On recalcule \`a nouveau la matrice.
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}\hline
+   &$p_{1}$ &$\lbrace p_{2},p_{5} \rbrace$&$\lbrace p_{3},p_{6} \rbrace$&$p_{4}$&  \hline
+   
+$p_{1}$ & 0    &     &     &     &      \hline
+
+$\lbrace p_{2},p_{5} \rbrace$ & 0.34 & 0   &     &     &      \hline
+
+$\lbrace p_{3},p_{6} \rbrace$ & 0.22 & 0.15 &    0 &     &      \hline
+
+$p_{4}$ & 0.37 &  0.29 & 0.22 &    0 &     \hline
+
+\end{tabular}
+\end{center}
+
+
+La valeur 0.22 est le minimum donc $\lbrace p_{3},p_{6} \rbrace$ et $p_{4}$ vont \^etre fusionn\'ees dans une classe commune $\lbrace p_{3},p_{6} ,p_{4}\rbrace$.\\
+
+$4^{\`eme}$ \'etape:
+On recalcule \`a nouveau la matrice.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}\hline
+   &$p_{1}$ &$\lbrace p_{2},p_{5} \rbrace$&$\lbrace p_{3},p_{6},p_{4}\rbrace$&  \hline
+   
+$p_{1}$ & 0    &     &     &   \hline
+
+$\lbrace p_{2},p_{5} \rbrace$ & 0.34 & 0   &     &   \hline
+
+
+$\lbrace p_{3},p_{6},p_{4}\rbrace$ & 0.37 &  0.39 & 0 &  \hline
+
+\end{tabular}\\
+\end{center}
+
+La valeur 0.34 est le minimum donc $\lbrace p_{2},p_{5}\rbrace$ et $p_{1}$ vont \^etre fusionn\'ees dans une classe commune $\lbrace p_{2},p_{5}, p_{1}\rbrace$.\\
+
+$5^{\`eme}$ \'etape:
+On recalcule \`a nouveau la matrice.
+\begin{center}
+\begin{tabular}{|c|c|c|}\hline
+   &$\lbrace p_{2},p_{5},p_{1} \rbrace$ &$\lbrace p_{3},p_{6},p_{4} \rbrace$&  \hline
+   
+$\lbrace p_{2},p_{5},p_{1} \rbrace$ & 0    &     &   \hline
+
+$\lbrace p_{3},p_{6},p_{4} \rbrace$ & 0.39 & 0   &   \hline
+
+
+\end{tabular}\\
+\end{center}
+
+La derni\`ere valeur est 0.39 donc  $\lbrace p_{2},p_{5}, p_{1} \rbrace$ et $\lbrace p_{3},p_{6},p_{4} \rbrace$ vont \^etre fusionn\'ees dans une classe commune $\lbrace p_{2},p_{5}, p_{1},p_{3},p_{6},p_{4} \rbrace$ qui regroupe toutes les donn\'ees.\\
+\newpage
+On obtient la repr\'esentation graphique des r\'esultats avec le dendrogramme suivant:\\
+
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{comp.jpg}
+\caption{Dendrogramme relatif au crit\`ere du maximum}
+\end{figure}
+
+
+
+
+
+
+c) \underline{Crit\`ere de la moyenne:}\\
+
+$1^{\`ere}$ \'etape:
+Pour la premi\`ere \'etape, la matrice des distances est la m\^eme qu'auparavant.\\
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}\hline
+   &$p_{1}$ &$p_{2}$&$p_{3}$&$p_{4}$&$p_{5}$&$p_{6}$&  \hline
+$p_{1}$ & 0    &     &     &     &     &  &   \hline
+$p_{2}$ & 0.23 & 0   &     &     &     &  &   \hline
+$p_{3}$ & 0.22 & 0.15 &    0 &     &     &  &   \hline
+$p_{4}$ & 0.37 & 0.2 & 0.15 &    0 &     &  &   \hline
+$p_{5}$ & 0.34 & 0.14 & 0.28 & 0.29 &    0 &  &   \hline
+$p_{6}$ & 0.23 & 0.25 & 0.11 & 0.22 & 0.39 & 0 &    \hline
+\end{tabular}\\
+\end{center}
+
+La valeur 0.11 est le minimum des valeurs, alors $p_{3}$ et $p_{6}$ vont \^etre fusionn\'ees dans une classe commune $\lbrace p_{3},p_{6} \rbrace$.\\
+
+$2^{\`eme}$ \'etape:
+On recalcule la matrice de distances \`a nouveau avec les nouvelles classes.\\
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}\hline
+   &$p_{1}$ &$p_{2}$&$\lbrace p_{3},p_{6} \rbrace$&$p_{4}$&$p_{5}$&  \hline
+$p_{1}$ & 0    &     &     &     &     &     \hline
+$p_{2}$ & 0.23 & 0   &     &     &     &     \hline
+$\lbrace p_{3},p_{6} \rbrace$ & 0.23 & 0.2 &    0 &     &     &     \hline
+$p_{4}$ & 0.37 &  0.2 & 0.19 &    0 &     &     \hline
+$p_{5}$ & 0.34 & 0.14 & 0.34 & 0.29 &    0 &     \hline
+\end{tabular}\\
+\end{center}
+
+La valeur 0.14 est le minimum des valeurs alors $p_{2}$ et $p_{5}$ vont \^etre fusionn\'ees dans une classe commune $\lbrace p_{2},p_{5} \rbrace .$\\
+
+$3^{\`eme}$ \'etape:
+On recalcule \`a nouveau la matrice.\\
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}\hline
+   &$p_{1}$ &$\lbrace p_{2},p_{5} \rbrace$&$\lbrace p_{3},p_{6} \rbrace$&$p_{4}$&  \hline
+   
+$p_{1}$ & 0    &     &     &     &      \hline
+
+$\lbrace p_{2},p_{5} \rbrace$ & 0.29 & 0   &     &     &      \hline
+
+$\lbrace p_{3},p_{6} \rbrace$ & 0.23 & 0.27 &    0 &     &      \hline
+
+$p_{4}$ & 0.37 &  0.25 & 0.19 &    0 &     \hline
+
+\end{tabular}\\
+\end{center}
+
+
+La valeur 0.19 est le minimum donc $\lbrace p_{3},p_{6} \rbrace$ et $p_{4}$ vont \^etre fusionn\'ees dans une classe commune $\lbrace p_{3},p_{6} ,p_{4}\rbrace$.\\
+
+$4^{\`eme}$ \'etape:
+On recalcule \`a nouveau la matrice.\\
+\begin{center}
+\begin{tabular}{|c|c|c|c|}\hline
+   &$p_{1}$ &$\lbrace p_{2},p_{5} \rbrace$&$\lbrace p_{3},p_{6},p_{4}\rbrace$&  \hline
+   
+$p_{1}$ & 0    &     &     &   \hline
+
+$\lbrace p_{2},p_{5} \rbrace$ & 0.29 & 0   &     &   \hline
+
+
+$\lbrace p_{3},p_{6},p_{4}\rbrace$ & 0.3 &  0.26 & 0 &  \hline
+
+\end{tabular}\\
+\end{center}
+
+La valeur 0.26 est le minimum donc $\lbrace p_{2},p_{5}\rbrace$ et $\lbrace p_{3},p_{6},p_{4} \rbrace$ vont \^etre fusionn\'ees dans une classe commune $\lbrace p_{2},p_{5}, p_{3},p_{6},p_{4}\rbrace$.\\
+
+$5^{\`eme}$ \'etape:
+On recalcule \`a nouveau la matrice.\\
+\begin{center}
+\begin{tabular}{|c|c|c|}\hline
+   &$p_{1}$ &$\lbrace p_{2},p_{5}, p_{3},p_{6},p_{4} \rbrace$&  \hline
+   
+$p_{1}$ & 0    &     &   \hline
+
+$\lbrace p_{2},p_{5},p_{3},p_{6},p_{4} \rbrace$ & 0.3 & 0   &   \hline
+
+
+\end{tabular}\\
+\end{center}
+
+La derni\`ere valeur est 0.3 donc  $\lbrace p_{2},p_{5} p_{3},p_{6},p_{4} \rbrace$ et $p_{1}$ vont \^etre fusionn\'ees dans une classe commune $\lbrace p_{1},p_{2},p_{5},p_{3},p_{6},p_{4} \rbrace$ qui regroupe toutes les donn\'ees.\\
+\newpage
+On obtient la repr\'esentation graphique des r\'esultats avec le dendrogramme suivant:\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{ave.jpg}
+\caption{Dendrogramme relatif au crit\`ere de la moyenne}
+\end{figure}
+
+\begin{remark}:\\
+Pour les trois crit\`eres, les valeurs des dissimilarit\'es augmentent d'une \'etape \`a l'autre, et ceci vient du fait que les classes de donn\'ees deviennent de plus en plus dissimilaires entre elles d'une \'etape \`a l'autre.
+\end{remark}
+
+
+
+Dans le paragraphe suivant on s'int\'eressera \`a la coupure d'un dendrogramme et \`a l'interpr\'etation des r\'esultats obtenus.
+\subsection{Coupure du dendrogramme et interpr\'etation des r\'esultats}
+
+Dans la premi\`ere partie de ce paragraphe, on essaie de visualiser les r\'esultats et de pr\'eciser les  classes \`a consid\'erer. La coupure du dendrogramme est un moyen d'effectuer cette t\^ache. On consid\`ere un segment horizontal qui coupe la hi\'erarchie H en des points particuliers. Chaque point de la coupure correspond \`a une classe de la hi\'erarchie H, le niveau de placement du segment de la coupure donne \`a priori un nombre de classes diff\'erent. En d\'efinissant un niveau de la coupure, on d\'efinit une partion et vice-versa.\\
+\newpage
+\begin{exmp}:\\
+On pr\'esente le deuxi\`eme dendrogramme initial de l'exemple pr\'ec\'edent que l'on coupe apr\`es en deux niveaux diff\'erents:\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=8.2cm, height=4cm]{tree.pdf}
+\caption{Dendrogramme initial}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=8.2cm, height=6cm]{cuttree.pdf}
+\caption{Dendrogramme coup\'e}
+\end{figure}
+La coupure donne 3 classes $\lbrace p_{3},p_{6},p_{4} \rbrace$ et $\lbrace p_{2},p_{5} \rbrace$ et $\lbrace p_{1} \rbrace$.\\
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[width=8.2cm, height=6cm]{cuttrre4.pdf}
+\caption{Dendrogramme coup\'e}
+\end{figure}
+La coupure donne 4 classes $\lbrace p_{4} \rbrace$, $\lbrace p_{3},p_{6} \rbrace$, $\lbrace p_{2},p_{5} \rbrace$ et $\lbrace p_{1} \rbrace$.\\
+
+\end{exmp}\\
+
+Dans cette deuxi\`eme partie du paragraphe, on essaie d'interpr\'eter les r\'esultats obtenus.\\
+
+Pour chaque classe C, on peut examiner:\\
+1) Son effectif.\\
+2) Son diam\`etre (distance entre les 2 points les plus \'eloign\'es), on le note, diam(C).\\
+3) La s\'eparation (distance minimum entre la classe consid\'er\'ee C et la classe la plus proche) et le num\'ero de la classe la plus proche, on la note, s(C).\\
+4) Les identit\'es des individus les plus proches du barycentre de la classe ou \guillemotleft parangons\guillemotright.\\
+5) Les identit\'es des individus les plus \'eloign\'es du barycentre de la classe ou \guillemotleft extr\^emes\guillemotright.\\
+En suite on peut faire une comparaison entre les diff\'erentes m\'ethodes et voir les classes communes, les changements, d'une m\'ethode \`a l'autre...etc\\
+
+En regardant les dendrogrammes obtenus, dans l'exemple pr\'ec\'edent, on constate qu'ils ont des formes diff\'erentes.\\
+\indent Dans le cas du crit\`ere du minimum, le dendrogramme a une forme en escaliers et les indices d'agr\'egation des donn\'ees sont tr\`es proches entre elles sauf la donn\'ee $ p_{1} .$\\
+\indent Dans le cas des m\'ethodes utilisant le crit\`ere du maximum ou celui de la moyenne, la distribution des classes est bien distingu\'ee.\\\\
+
+Pour la m\'ethode du maximum dans la FIGURE 1.16, on voit qu'il y a 3 classes.\\ 
+1) La classe $C_{1} = \lbrace p_{3},p_{6},p_{4} \rbrace$ de cardinal 3, la classe $C_{2} = \lbrace p_{2},p_{5} \rbrace$ de cardinal 2 et la classe $C_{3} = \lbrace p_{1} \rbrace$ de cardinal 1.\\
+2) $Diam(C_{1}) = d(p_{4},p_{6}) = 0.22$, $Diam(C_{2}) = 0.14$ et $Diam(C_{3}) = 0.$\\
+3) $s(C_{2}) = min (d(C_{2},C_{1}),d(C_{2},C_{3})) = d(C_{2},C_{3}) = 0.15$, donc la plus proche classe de la classe $C_{2}$ est $ C_{3} $.\\
+4) et 5) Parangons et extr\^emes des classes:\\
+\indent - Pour $ C_{1} $, on a un seul individu dans cette classe qui est aussi le barycentre: $ g_{1} = p_{1} $.\\
+\indent - Pour $ C_{2} $, on a le barycentre de $ C_{2} $ est le point $g_{2}(0.15,0.395)$, $ d(p_{2},g_{2}) = 0.07 $ et $ d(p_{5},g_{2}) = 0.07 $.\\
+\indent - Pour $ C_{3} $, on a le barycentre de $ C_{3} $ est le point $ g_{3}(0.35,0.27) $, $ d(p_{3},g_{3}) = 0.05 $, $ d(p_{4},g_{3}) = 0.12 $ et $ d(p_{6},g_{}) = 0.1 $.\\\\\
+
+On peut aussi faire une comparaison des r\'esultats obtenus par ces diff\'erentes m\'ethodes. Pour le crit\`ere de la moyenne et celui du maximum, avec une coupure en 3 classes, on voit qu'ils gardent la m\^eme partition $C_{1} = \lbrace p_{3},p_{6},p_{4} \rbrace$, $C_{2} = \lbrace p_{2},p_{5} \rbrace$ et $C_{3} = \lbrace p_{1} \rbrace$, cependant le crit\`ere du minimun donne une partition diff\'erente, $C_{1} = \lbrace p_{1} \rbrace$, $C_{2} = \lbrace p_{2},p_{3},p_{5},p_{6} \rbrace$ et $C_{3} = \lbrace p_{4} \rbrace.$
+
+
+
+
+\chapter{Application num\'erique avec logiciel R}
+Dans ce chapitre on impl\'ementera des diff\'erentes m\'ethodes mentionn\'ees dans le chapitre pr\'ec\'edent, avec le logiciel R, sur un ensemble de donn\'ees de fiches techniques des voitures, enregistr\'e sous format ".csv", tir\'e du site web: https://www.auto-selection.com/.\\
+
+Cet ensemble de donn\'ees brutes est r\'esum\'e dans les 4 tableaux suivants:\\ 
+\newpage
+\begin{table}[h]
+\centering
+\includegraphics[width=14cm, height=10cm]{data1.jpg}
+\caption{Donn\'ees1}
+\end{table}
+\newpage
+\begin{table}[h]
+\centering
+\includegraphics[width=14cm, height=10cm]{data2.jpg}
+\caption{Donn\'ees2}
+\end{table}
+\newpage
+\begin{table}[h]
+\centering
+\includegraphics[width=14cm, height=10cm]{data3.jpg}
+\caption{Donn\'ees3}
+\end{table}
+\newpage
+\begin{table}[h]
+\centering
+\includegraphics[width=14cm, height=10cm]{data4.jpg}
+\caption{Donn\'ees4}
+\end{table}
+
+
+Notre objectif, dans cette partie est de faire une segmentation sur cet ensemble de voitures de sorte \`a obtenir des cat\'egories naturelles.\\
+
+Dans un premier temps, on importe les donn\'ees dans RStudio (environnement de travail) avec la commande: "$dt<-read.csv(file.choose())$" et on commence les \'etapes de pr\'etraitement des donn\'ees (le centrage et la r\'eduction) des variables quantitatives avec la commande:\\ "$dt1<-scale(dt[,-1])$". On n'a pas de donn\'ees manquantes \`a traiter, dans notre ensemble de donn\'ees.\\
+
+Avant tout, on essaie de d\'ecrire et de visualiser les donn\'ees brutes (i.e \`a l'\'etat initial) avec la commande "pairs(dt)".\\
+
+L'ensemble des donn\'ees comporte 80 voitures de diff\'erents marques et mod\`eles et 9 variables descriptives: Nombre de places, longueur en mm, largeur en mm, poids en kg, nombre de chevaux, vitesse maximale (Vmax) en km/h, acc\'el\'eration de 0-100 km/h/seconde, consommation en litres/100 km, prix en euro.\\
+
+
+On visualise l'ensemble des donn\'ees \`a travers la figure suivante:\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=14cm, height=10cm]{pairs.jpg}
+\caption{Visualisation des donn\'ees deux \`a deux}
+\end{figure}
+Dans la FIGURE 2.1, on voit les diff\'erentes r\'epartitions des donn\'ees en tenant compte de deux variables \`a la fois. En consid\'erant, par exemple:\\
+1) Le rectangle situ\'e dans l'intersection de la ligne 4 avec la colonne 5, on constate qu'il y a un seul groupe contenant tous les individus en examinant le graphe de la largeur en fonction du poids.\\
+2) Le rectangle situ\'e dans l'intersection de la ligne 7 avec la colonne 8, on remarque qu'il y a deux groupes en examinant le graphe de la vitesse maximale en fonction de l'acc\'el\'eration.\\
+3) Le rectangle situ\'e dans l'intersection de la ligne 4 avec la colonne 2, on voit qu'il y a trois groupes en examinant le graphe de la largeur en fonction de nombre de places.\\
+4) Le rectangle situ\'e dans l'intersection de la ligne 8 avec la colonne 5, on ne peut rien dire en examinant le graphe de l'acc\'el\'eration en fonction du poids.
+La description diff\'ere d'un rectangle \`a l'autre dans la FIGURE 2.1. Une question qui se pose: Combien de groupes peut-on consid\'erer?  \\
+
+Pour r\'epondre \`a cette question on fait une classification hi\'erarchique ascendandent avec diff\'erentes m\'ethodes et on interpr\`ete les r\'esultats obtenus. \\\\
+
+
+a) \underline{M\'ethode de Ward}:\\
+En suivant les \'etapes de l'algorithme de la classification hi\'erarchique ascendante, on commence par le calcul de la matrice des distances entre les individus, avec la commande: "$d<-dist(dt1)$". On fait intervenir la fonction "hclust" qui impl\'emente l'algorithme choisi.\\
+
+On ex\'ecute donc la commande suivante: "$h.w<-hclust(d, "ward.D2")$", puis on visualise les r\'esultats de sortie de la fonction "hclust" avec la commande: "plot(h.w,labels = dt[,1], hang = -1,cex = .6)". On obtient la figure suivante:\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=8cm]{ward.D2.jpg}
+\caption{Dendrogramme relatif au crit\`ere de Ward}
+\end{figure}
+Un premier coup d'oeil sur la FIGURE 2.2, nous montre que les marques sont r\'eparties sur l'axe des abscisses et forment diff\'erents groupes. Pour bien visualiser la r\'epartiton on ex\'ecute la commande: "rect.hclust(h.w,3)".\\
+\newpage
+Cette commande nous donne une coupure en 3 groupes, comme pr\'esent\'e dans la figure suivante:\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=8cm]{cutw.jpg}
+\caption{Dendrogramme coup\'e relatif au crit\`ere de Ward}
+\end{figure}
+Dans la FIGURE 2.3, on voit 3 classes, la premi\`ere classe contient les voitures dites, voitures de hautes performances, la deuxi\`eme classe contient des voitures de milieu de gamme avec des performaneces avanc\'ees et la troisi\`eme classe contient les voitures d'entr\'ee de gamme avec des performances \'economiques.\\ 
+
+Si on coupe la hi\'erarchie un peu plus haut, on trouvera deux classes, une contenant les voitures de luxe et l'autre contenantt les voitures \'economiques.\\ 
+Si maintenant, on coupe un peu plus bas, on trouvera beaucoup plus de classes que dans les cas pr\'ec\'edents et donc on trouvera de nouvelles cat\'egories.\\
+
+Le choix du nombre de classes est une t\^ache d\'elicate. Des fois, la r\'eponse est clairement visible sur le dendrogramme, mais dans notre situation, on peut consid\'erer 2 classes comme on peut en consid\'erer 3 ou bien 4 ...etc. Pour pr\'eciser le choix, on utilise la m\'ethode du coude qu'on impl\'emente, on obtient ainsi la figure suivante:\\
+
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[width=10cm, height=4cm]{coudetst.jpg}
+\caption{Impl\'ementation de la m\'ethode du coude}
+\end{figure}
+
+
+On voit dans la FIGURE 2.4 que le point de d\'eviation aig\"{u}e donne 3 classes \`a consid\'erer (i.e la coupure d\'efinie dans la FIGURE 2.3), la premi\`ere classe $ C_{1} $ des voitures de hautes performances, situ\'ee \`a gauche de la FIGURE 2.3, la deuxi\`eme classe $ C_{2} $ contient plus de voitures de milieu de gamme, situ\'ee au milieu de la FIGURE 2.3 et une troisi\`eme $ C_{3} $ contient plus de voitures d'entr\'ee de gamme, situ\'ee \`a droite de la FIGURE 2.7. On voit que la classification ici n'est pas totalement exacte, mais apparemment, elle est meilleure que la classification manuelle. La qualit\'e de la partition en 3 classes est donn\'ee par l'indicateur $R^{2}$ = 75\%, qui est beaucoup mieux.\\\\
+On tente d'interpr\'eter les r\'esultats obtenus pour mieux comprendre la r\'epartiton des donn\'ees selon cette m\'ethode.\\
+
+1) On consid\`ere une partition en 3 classes, on ex\'ecute les commande: "$clusters.w<-cutree(h.w,3)$" et
+"clusters.w", on trouve le regroupement suivant:\\
+\begin{table}[h]
+\centering
+\includegraphics[width=10cm, height=4cm]{clusters.jpg}
+\caption{Description des classes}
+\end{table}
+
+Comme on le voit ci-dessus dans le TABLE 2.5, on constate un chevauchement dans la premi\`ere ligne entre les voitures de la deuxi\`eme classe et celles de la troisi\`eme classe. Pour mieux voir les classes, on ex\'ecute la m\'ethode de silhouette pour examiner la pertinence des individus \`a leurs classes, avec les commandes: "silhouette(clusters.w,d)" et\\ "plot(silhouette(clusters.w,d))". On obtient ainsi la figure suivante:\\
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=8cm]{slwt.jpg}
+\caption{Description des classes selon les indices de silhouette}
+\end{figure}
+Dans la FIGURE 2.5, la m\'ethode de silhouette est impl\'ement\'ee pour une coupure en 3 classes, $ C_{1} $, $ C_{2} $ et $ C_{3} $, les descriptions des 3 classes apparaissent sur la m\^eme FIGURE 2.5.\\\\
+L'examen de la pertinence des individus \`a la classe $ C_{1} $ est r\'ealis\'e \`a l'aide des commandes:"$sil.w<-silhouette(clusters.w,d)$" et "
+sil.w". Le r\'esultat obtenu est le suivant:\\
+\newpage
+\begin{table}[h]
+\centering
+\includegraphics[width=12cm, height=8cm]{silward.jpg}
+\caption{Pertinence des individus de la classe $ C_{1} $}
+\end{table}
+D'apr\`es le TABLE 2.6, les indices de silhouttes des individus de la classe $ C_{1} $ indiquent que tout les points de cette classe ont pour classe voisine la classe $ C_{2} $. La classe $ C_{1} $ se trouve bien isol\'e dans cette partiton en trois classes, car tous les indices sont strictement positifs et m\^eme sup\'erieurs \`a 0.2. Ceci est raisonnable car cette classe contient des voitures de hautes performances et a un prix tr\`es \'elev\'e par rapport aux autres classes.\\
+\newpage
+De m\^eme pour la classe $ C_{2} $, on a le tableau des pertinencs suivant:\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=8cm]{silward0.jpg}
+\caption{Pertinence des individus de la classe $ C_{2} $}
+\end{figure}
+
+Le TABLE 2.6 indique que cette classe a pour voisine de tous ses points, la classe $ C_{3} $  et elle est bien isol\'ee, car les indices sont strictement positifs et m\^eme  supr\'erieurs \`a 0.1.\\
+ 
+ 
+ 
+\newpage
+Pour la classe $ C_{3} $, on obtient les deux tableaux des pertinences suivants:\\
+
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=7cm]{silward1.jpg}
+\caption{Pertinence des individus de la classe $ C_{3} $}
+\end{figure}
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=6cm]{silward2.jpg}
+\caption{Suite du "TABLE 2.7"}
+\end{figure}
+
+
+D'apr\`es le TABLE 2.7 et le TABLE 2.8, on voit que tout les points de la classe $ C_{3} $ ont pour classe voisine la classe $ C_{2} $. Il y a aussi un individu d'indice de silhouette n\'egatif, ce qui signifie que cet indvidu n'est pas coh\'erent avec la classe $ C_{3} $ mais avec la classe $ C_{2} $, il s'agit de la voiture "Jeep wrangle" qui a des performances avanc\'ees, donc il est clair que cette voiture est mal class\'e, malgr\'e ceci, si on compte tenu la moyenne des indices lors de chaque classes, $ S(C_{1})=0.43 $,  $ S(C_{3})=0.50 $ et  $ S(C_{3})=0.50 $, donc  $ C_{2} $ et  $ C_{3} $ sont plus homog\'enes que  $ C_{1} $. Ceci revient \`a ce que les voitures dans  $ C_{1} $ sont un peu distinctes et ceci est montr\'e dans la FIGURE 2.5 avec les sauts importants des indices de silhouettes des individus, ce qui est confirm\'e par ses attributs qui sont relativement distincts, par contre pour la classe  $ C_{2} $ et  $ C_{3} $, on voit qu'il y a une augmentation souple des indices de silhouette des individus dans la m\^eme FIGURE 2.5 et ceci revient aux atributs relativement communs entre ses voitures.\\ \\
+
+
+On peut aussi impl\'ementer une m\'ethode bas\'ee sur l'indice de silhouette pour derterminer le nombre de classes \`a consid\'erer, on a ainsi la figure suivante:\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=10cm, height=6cm]{silnbclust.jpg}
+\caption{M\'ethode de Silhouette}
+\end{figure}
+
+D'apr\`es la FIGURE 2.9, on constate que la m\'ethode indique 2 classes \`a consid\'erer, mais comme cela a \'et\'e mentionn\'e auparavant, on cherche toujours des partitions autres que la partition en 2 classes, qui est dans la plupart des cas, une partition \'evidente.\\
+
+Dans le but d'avoir une bonne classifiction, on examine la variation des partitions d'un crit\`ere \`a l'autre, ce qu'on appelle "Crossed Validation" et on regarde le crit\`ere le plus adapt\'e \`a ce type de donn\'ees. \\\\\
+
+\newpage
+b) \underline{M\'ethode du maximum}:\\
+
+Le r\'esultats correspondent \`a l'utilisation de l'algorithme de cette m\'ethode donne le dendrogramme suivant:\\
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=8cm]{compdend.jpg}
+\caption{Dendrogramme relatif \`a la m\'ethode du maximum}
+\end{figure}
+
+Dans cette FIGURE 2.10, on voit une r\'epartition des individus diff\'erente de celle de la m\'ethode de Ward. On ex\'ecute une coupure en 3 classes. On obtient:\\
+\newpage
+
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=8cm]{compdendcut.jpg}
+\caption{Dendrogramme coup\'e relatif \`a la m\'ethode du maximum}
+\end{figure}
+
+Dans la FIGURE 2.11, on voit que cette m\'ethode a r\'eussi \`a mieux classifier la premi\`ere classe comme l'a fait la m\'ethode de Ward, mais elle donne un chevauchement de la deuxi\`eme et de la troisi\`eme classe. Ceci vient du fait que cette m\'ethode est biais\'ee vers les petites classes. La premi\`ere classe se trouve assez loin des deux autres classes et ne peut donc se chevaucher avec elles. Ceci est comfirm\'e par la m\'ethode de silhouette, qui montre la pertinence des individus dans la figure suivante:\\
+
+\newpage
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=8cm]{compsil.jpg}
+\caption{Description des classes selon les indices de silhouette}
+\end{figure}
+
+Comme l'indique la FIGURE 2.12, on voit clairement le positionnement n\'egatif ou presque nul d'une portione importante dans la deuxi\`eme classe. D'apr\`es les informations contenues dans les indices de silhouette, on voit que la classe voisine des individus d'indice n\'egatif est la classe 3, ce qui comfirme notre interpr\'etation ci-dessus.\\\\
+On utilise maintenant la m\'ethode du coude pour avoir le nombre de classe \`a consid\'erer. On obtient le graphe suivant:\\
+
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=8cm]{coudecompl.jpg}
+\caption{M\'ethode du coude}
+\end{figure}
+
+
+D'apr\`es la FIGURE 2.13, on voit que la courbe pr\'esente plusieurs d\'eviations, une augue, une douce puis une plus importante. On peut dire que la m\'ethode a r\'eussi de classifier les classes naturellement dans la partition en 5 classes. Cette partition en 5 classes est presque la m\^eme que la partition obtenue par la m\'ethode de Ward en 5 classes.\\\\
+
+
+
+
+
+c) \underline{M\'ethode du minimum}:\\
+
+Comme cela a \'et\'e fait pour les m\'ethodes pr\'ec\'edentes, on examine les r\'esultats obtenus par cette m\'ethode, on commence par donner le dendrogramme correspondant aux donn\'ees:\\
+
+
+
+
+
+
+
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=8cm]{singledend.jpg}
+\caption{Dendrogramme relatif \`a la m\'ethode du minimum}
+\end{figure}
+
+
+La FIGURE 2.14, montre essentiellement deux classes, l'une est grande et sous forme d'escaliers et l'autre est plus petite. Pour plus de pr\'ecision, on effectue la coupure suivante, du dendrogramme ci-dessus et on obtient:\\ 
+
+\newpage
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=8cm]{singledendcut.jpg}
+\caption{Dendrogramme coup\'e relatif \`a la m\'ethode du minimum}
+\end{figure}
+
+Ici la situation diff\`ere de la m\'ethode du maximum. D'apr\`es la FIGURE 2.15, on constate que la coupure donne une petite classe coup\'ee en deux sous-classes et une grosse classe. Cette m\'ethode \'etant sensible \`a l'effet de cha\^ine, elle donne un chevauchement de la classe naturelle 2 des voitures de milieu de gamee avec la classe naturelle 3 des voitures d'entr\'ee de gamme et elle partage la classe naturelle 1 en deux.\\
+En utilisant, l'indice de silhouette, on obtient le diagramme suivant:\\
+
+
+\newpage
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=8cm]{singlesil.jpg}
+\caption{Description des classes selon les indices de silhouette}
+\end{figure}
+
+
+On voit sur la FIGURE 2.16 que la grosse classe est tr\`es homog\`ene. Ceci vient du fait que la m\'ethode a fait une classification en deux classes et apr\`es elle a coup\'e la premi\`ere classes en deux.\\
+\newpage
+En utilisant la m\'ethode du coude, on obtient:\\
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=8cm]{coudesingle.jpg}
+\caption{Description des classes selon les indices de silhouette}
+\end{figure}
+  
+On voit sur la FIGURE 2.17, une d\'eviation de la courbe suivie d'une presque stabilisation et juste apr\`es il y a une autre d\'eviation, pour les 4 premi\`eres coupures, on voit sur le dendrogramme que la grosse classe n'est pas touch\'e, ce qui signifie que les indivdus de cette classe sont fortement embo\^it\'es.\\\\
+
+
+
+
+
+\underline{Interpr\'etation g\'en\'erale:}\\
+
+En examinant les trois m\'ethodes ci-dessus, on peut constater qu'elles ont des points communs et d'autres diff\'erents.\\
+1) \underline{Points communs:} Les trois m\'ethodes ont r\'eussi \`a isoler la classe des voitures de hautes performances, elles indiquent que les individus de cette classe sont un peu distincts entre eux, mais cette classe est loin d'autres classes.\\
+2) \underline{Points de distinction:} Les trois m\'ethodes classifient la deuxi\`eme et la troixsi\`eme classes de mani\`eres diff\'erentes. La m\'ethode de Ward a s\'epar\'e ces deux classes, en une classe de milieu de gamme avec des individus ayant des performaneces avanc\'ees et en une autre classe d'entr\'ee de gamme avec des caract\'eristiques \'economiques. Seule une voiture de milieu de gamme est mal class\'ee (Jeep wrangle), ses dimensions ont jou\'e un r\^ole dans sa mal classification, car cette voiture poss\`ede de petites dimensions. La m\'ethode du maximum, a elle aussi, s\'epar\'e ces deux classes mais d'une mani\`ere biais\'ee vers la classe de milieu de gamme. La m\'ethode du minimum a consid\'er\'e ces deux classes comme \'etant une seule classe. Les individus de ces deux classes sont fortement embo\^i\'es.\\
+
+
+
+\underline{conclusions:}\\
+1) Il est connu que l'ensemble des voitures se r\'epartit g\'en\'eralement en 3 classes, dans notre cas on a: \\
+\indent a) la classe des voitures de haute de gamme:\\
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=6cm, height=8cm]{haute.jpg}
+\caption{Classe des voitures de haute de gamme}
+\end{figure}
+ 
+Cette classe dans est comfirm\'ee par les trois m\'ethodes.\\\\
+
+
+
+\newpage
+\indent b) La classe de milieu de gamme:\\
+
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=8cm, height=8cm]{milieu.jpg}
+\caption{Classe des voitures de milieu de gamme}
+\end{figure}
+ 
+Cette classe est comfirm\'ee par la m\'ethode de Ward, on trouve aussi cette classe dans la partition en 5 classes dans la m\'ethode du maximum. En se basant sur l'indice de silhouette dans la m\'ethode de Ward, on ajoute la voiture Jeep wrangle \`a cette classe.\\\\
+
+
+
+
+\newpage
+\indent c) La classe d'entr\'ee de gamme:\\
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=8cm]{entree.jpg}
+\caption{Classe des voitures d'entr\'ee de gamme}
+\end{figure}
+ 
+ 
+Cette classe est comfirm\'ee par la m\'ethode de Ward, en enlevant la voiture Jeep wrange et par la m\'ethode du maximum en tenant compte les individus d'indices de silhouette n\'egatifs.\\
+
+La m\'ethode du minimum nous a donn\'ee des information sur la distinction des individus dans la premi\'ere classe et sur l'embo\^itement des individus des deux autres classes.\\
+\newpage
+On a ainsi la figure suivante:\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm, height=8cm]{gammes.jpg}
+\caption{Gammes des voitures}
+\end{figure}
+
+La figure ci-dessus montre la r\'epatition des voitures class\'ees selon la m\'ethode de Ward, en tenant compte les variables deux \`a deux.\\\\
+
+
+
+2) La m\'ethode de Ward parait plus performante dans cette classification que les autres m\'ethodes, car elle a pu faire une classification en 3 classes, qui est la classification naturelle avec une pertinence des individus coh\'erents.\\\\
+
+
+
+\newpage
+
+
+
+
+
+
+
+\chapter*{Conclusion}\\
+La classification hi\'erarchique ascendante est une m\'ethode interessante. Elle permet de d\'eterminer les liens naturels entre les individus, d'une mani\`ere automatique et elle permet de visualiser clairement ces liens par des dendrogrammes. De plus elle poss\`ede plusieurs m\'ethodes ad\'equates pour diff\'erentes situations. On peut m\^eme utiliser la "Crossed Validation" (comparaison entre les m\'ethodes). Cependant, l'inconv\'enient de cet algorithme est le temps d'ex\'ecution qui est en g\'en\'erale de l'ordre de $(O(n^{3}))$ et l'espace m\'emoire necessaire qui est de l'ordre de $(O(n^{2}))$. Cet ordre de complexit\'e rend le traitement des ensembles de donn\'ees de grandes tailles assez lourd, ce qui ouvre la porte \`a l'impl\'ementation d'autres algorithmes de complexit\'e moins \'elev\'ee tel que, l'algorithme des "K-means" ou bien l'impl\'ementation mixte des deux algorithmes, l'algorithme des "K-means" pour le d\'emarage de la classification suivi de l'algorithme de la classification hi\'erarchique ascendante.
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{thebibliography}{}                                                                                               \addcontentsline{toc}{chapter}{Bibliographie}
+
+
+\bibitem{}
+E. Lebarbier, T. Mary-Huard, \textit{Classification non supervis\'ee}, AgroParisTech.
+
+\bibitem{}
+François Husson, \textit{Classification ascendante hiérarchique (CAH)}, Laboratoire de mathématiques appliquées - Agrocampus Rennes.
+
+
+
+\bibitem{}
+Gabor J.Szekely and Maria L. Rizzo, \textit{ Hierarchical clustering via Joint Between-Within Distances: Extending Ward's Minimum Variance Method}, Journal of Classification, vol. 22, no 2,‎ septembre 2005, p. 151-183.
+
+
+
+\bibitem{}
+Chaitanya Reddy Patlolla, \textit{Understanding the concept of Hierarchical clustering Technique
+}, https://towardsdatascience.com/understanding-the-concept-of-hierarchical-clustering-technique-c6e8243758ec.
+
+
+
+\bibitem{}
+Peter J. ROUSSEEUW, \textit{Silhouettes: a graphical aid
+to the interpretation and validation
+of cluster analysis }, Journal of Computational and Applied Mathematics 20 (1987) 53-65 North-Holland, University of Fribourg, ISES, CH-I 700 Fribourg Switzerland.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{thebibliography}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
